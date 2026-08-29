@@ -350,6 +350,52 @@
 const READ_MINUTES = 5;
 const READ_SECONDS = READ_MINUTES * 60;
 
+// Paste the "Web app URL" you get after deploying AppsScript-Code.gs to your
+// Google Sheet (Deploy > New deployment > Web app). It should end with /exec.
+// Without this, quiz/worksheet results won't be shared between students and
+// the teacher when this page is hosted outside Claude (e.g. GitHub Pages).
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyhNjfGQXQfjKiFGpzqjeZVzgAoWclnnQioGyzHcJrFEb8mXylA2WO7odAI-wVKi48l/exec';
+
+/* ---- Shared key-value storage backed by the Google Sheet above ---- */
+async function dbGet(key){
+  try{
+    const res = await fetch(SHEET_API_URL + '?action=get&key=' + encodeURIComponent(key));
+    const data = await res.json();
+    return (data && data.value !== undefined && data.value !== null && data.value !== '') ? data.value : null;
+  }catch(e){
+    console.error('DB get failed:', e);
+    return null;
+  }
+}
+
+async function dbSet(key, value){
+  try{
+    await fetch(SHEET_API_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'}, // avoids a CORS preflight against Apps Script
+      body: JSON.stringify({action:'set', key, value})
+    });
+    return true;
+  }catch(e){
+    console.error('DB set failed:', e);
+    return false;
+  }
+}
+
+async function dbDelete(key){
+  try{
+    await fetch(SHEET_API_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'delete', key})
+    });
+    return true;
+  }catch(e){
+    console.error('DB delete failed:', e);
+    return false;
+  }
+}
+
 const USERS = {
   arhamhanif:{password:'guru123', role:'teacher', name:'Mr. Arham Hanif', title:'English Teacher'},
   Tia:{password:'siswa', role:'student', name:'Tia', title:'XI D1', class:'XI D1'},
@@ -522,20 +568,16 @@ function defaultSubmission(){
 
 async function loadSubmission(username){
   try{
-    const res = await window.storage.get('submission:' + username, true);
-    if(res && res.value){
-      return Object.assign(defaultSubmission(), JSON.parse(res.value));
+    const raw = await dbGet('submission:' + username);
+    if(raw){
+      return Object.assign(defaultSubmission(), JSON.parse(raw));
     }
   }catch(e){ /* not found yet, fall through to default */ }
   return defaultSubmission();
 }
 
 async function saveSubmission(username, sub){
-  try{
-    await window.storage.set('submission:' + username, JSON.stringify(sub), true);
-  }catch(e){
-    console.error('Could not save progress:', e);
-  }
+  await dbSet('submission:' + username, JSON.stringify(sub));
   return sub;
 }
 
@@ -552,39 +594,29 @@ function defaultWorksheetSubmission(worksheet){
 async function loadWorksheetSubmission(worksheetId, username){
   const worksheet = WORKSHEETS.find(w => w.id === worksheetId);
   try{
-    const res = await window.storage.get('wsSubmission:' + worksheetId + ':' + username, true);
-    if(res && res.value){
-      return Object.assign(defaultWorksheetSubmission(worksheet), JSON.parse(res.value));
+    const raw = await dbGet('wsSubmission:' + worksheetId + ':' + username);
+    if(raw){
+      return Object.assign(defaultWorksheetSubmission(worksheet), JSON.parse(raw));
     }
   }catch(e){ /* not found yet, fall through to default */ }
   return defaultWorksheetSubmission(worksheet);
 }
 
 async function saveWorksheetSubmission(worksheetId, username, sub){
-  try{
-    await window.storage.set('wsSubmission:' + worksheetId + ':' + username, JSON.stringify(sub), true);
-  }catch(e){
-    console.error('Could not save worksheet progress:', e);
-  }
+  await dbSet('wsSubmission:' + worksheetId + ':' + username, JSON.stringify(sub));
   return sub;
 }
 
 async function getEffectivePassword(username){
   try{
-    const res = await window.storage.get('password:' + username, true);
-    if(res && res.value) return res.value;
+    const raw = await dbGet('password:' + username);
+    if(raw) return raw;
   }catch(e){ /* no override saved, use default */ }
   return USERS[username].password;
 }
 
 async function setPasswordOverride(username, newPassword){
-  try{
-    await window.storage.set('password:' + username, newPassword, true);
-    return true;
-  }catch(e){
-    console.error('Could not save new password:', e);
-    return false;
-  }
+  return await dbSet('password:' + username, newPassword);
 }
 
 /* ============ Helpers ============ */
@@ -688,14 +720,14 @@ async function doLogin(){
     }
   }
   session = {username:u, role:user.role};
-  try{ await window.storage.set('currentSession', JSON.stringify(session), false); }catch(e){ /* non-fatal */ }
+  try{ localStorage.setItem('currentSession', JSON.stringify(session)); }catch(e){ /* non-fatal */ }
   if(user.role==='student') renderStudentApp();
   else renderTeacherApp();
 }
 
 async function logout(){
   session = null;
-  try{ await window.storage.delete('currentSession', false); }catch(e){ /* non-fatal */ }
+  try{ localStorage.removeItem('currentSession'); }catch(e){ /* non-fatal */ }
   renderLogin();
 }
 
@@ -1675,28 +1707,12 @@ document.addEventListener('touchmove', (e)=>{
   }
 }, {passive:false});
 
-// On load, check for a previously saved session so reloading the page
-// (or reopening it) keeps the user signed in instead of bouncing to Login.
-// Retries a couple of times in case the storage bridge isn't ready the
-// instant the script runs.
-async function readStoredSession(attempt){
-  attempt = attempt || 0;
-  try{
-    const res = await window.storage.get('currentSession', false);
-    return res && res.value ? res.value : null;
-  }catch(e){
-    if(attempt < 3){
-      await new Promise(r => setTimeout(r, 300));
-      return readStoredSession(attempt + 1);
-    }
-    return null;
-  }
-}
-
+// On load, check for a previously saved session (in this browser) so
+// reloading the page keeps the user signed in instead of bouncing to Login.
 async function restoreSession(){
   render(`<div class="login-wrap"><p class="loading-note">Loading...</p></div>`);
   try{
-    const raw = await readStoredSession();
+    const raw = localStorage.getItem('currentSession');
     if(raw){
       const saved = JSON.parse(raw);
       if(saved && saved.username && USERS[saved.username] && USERS[saved.username].role === saved.role){
