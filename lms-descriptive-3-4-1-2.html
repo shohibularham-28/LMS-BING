@@ -354,7 +354,7 @@ const READ_SECONDS = READ_MINUTES * 60;
 // Google Sheet (Deploy > New deployment > Web app). It should end with /exec.
 // Without this, quiz/worksheet results won't be shared between students and
 // the teacher when this page is hosted outside Claude (e.g. GitHub Pages).
-const SHEET_API_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyhNjfGQXQfjKiFGpzqjeZVzgAoWclnnQioGyzHcJrFEb8mXylA2WO7odAI-wVKi48l/exec';
 
 /* ---- Shared key-value storage backed by the Google Sheet above ---- */
 async function dbGet(key){
