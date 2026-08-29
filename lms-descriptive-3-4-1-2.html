@@ -397,10 +397,45 @@ async function dbDelete(key){
 }
 
 const USERS = {
-  arhamhanif:{password:'guru123', role:'teacher', name:'Mr. Arham Hanif', title:'English Teacher'},
-  Tia:{password:'siswa', role:'student', name:'Tia', title:'XI D1', class:'XI D1'},
-  Cahya:{password:'siswa', role:'student', name:'Cahya', title:'XI E1', class:'XI E1'},
-  inayah:{password:'siswa', role:'student', name:'Inayah', title:'X I', class:'X I'}
+  arhamhanif:{username:'arhamhanif', password:'guru123', role:'teacher', name:'Mr. Arham Hanif', title:'English Teacher'},
+  Tia:{username:'Tia', password:'siswa', role:'student', name:'Tia', title:'XI D1', class:'XI D1'},
+  Cahya:{username:'Cahya', password:'siswa', role:'student', name:'Cahya', title:'XI E1', class:'XI E1'},
+  xi01:{username:'siswa', password:'allin', role:'student', name:'Allfin Indrawarman', title:'X I', class:'X I'},
+  xi02:{username:'siswa', password:'amani', role:'student', name:'Amanatun Ni\'mah', title:'X I', class:'X I'},
+  xi03:{username:'siswa', password:'anggi', role:'student', name:'Anggita Zahra Amelia', title:'X I', class:'X I'},
+  xi04:{username:'siswa', password:'anisa', role:'student', name:'Anisa Listiani Dwi Novita', title:'X I', class:'X I'},
+  xi05:{username:'siswa', password:'aqila', role:'student', name:'Aqila Zalfa', title:'X I', class:'X I'},
+  xi06:{username:'siswa', password:'azaha', role:'student', name:'Azah Rotus Sita Fa\'anzah', title:'X I', class:'X I'},
+  xi07:{username:'siswa', password:'azqia', role:'student', name:'Azqiatul Istiqomah', title:'X I', class:'X I'},
+  xi08:{username:'siswa', password:'azrie', role:'student', name:'Azriel Danar Hibatulloh', title:'X I', class:'X I'},
+  xi09:{username:'siswa', password:'bagus', role:'student', name:'Bagus Novianto', title:'X I', class:'X I'},
+  xi10:{username:'siswa', password:'benin', role:'student', name:'Bening Nadhar Maryuni', title:'X I', class:'X I'},
+  xi11:{username:'siswa', password:'devit', role:'student', name:'Devita Putri Vera Nika', title:'X I', class:'X I'},
+  xi12:{username:'siswa', password:'dewiw', role:'student', name:'Dewi Ina Wati', title:'X I', class:'X I'},
+  xi13:{username:'siswa', password:'fatih', role:'student', name:'Fatih Sidiq Panglima Yudha', title:'X I', class:'X I'},
+  xi14:{username:'siswa', password:'final', role:'student', name:'Fina Lydiasari', title:'X I', class:'X I'},
+  xi15:{username:'siswa', password:'fithr', role:'student', name:'Fithriyah Husna Ufairah', title:'X I', class:'X I'},
+  xi16:{username:'siswa', password:'giska', role:'student', name:'Giska Chelsea Afifah', title:'X I', class:'X I'},
+  xi17:{username:'siswa', password:'hasna', role:'student', name:'Hasnah Nur Abiyyah', title:'X I', class:'X I'},
+  xi18:{username:'siswa', password:'ikano', role:'student', name:'Ika Noviana', title:'X I', class:'X I'},
+  xi19:{username:'siswa', password:'ikhan', role:'student', name:'Ikhsan Khafidh Muzaqi', title:'X I', class:'X I'},
+  xi20:{username:'siswa', password:'imann', role:'student', name:'Iman Nugraha Nur Saputra', title:'X I', class:'X I'},
+  xi21:{username:'siswa', password:'inaya', role:'student', name:'Inayah Izzati Aulia', title:'X I', class:'X I'},
+  xi22:{username:'siswa', password:'kanza', role:'student', name:'Kanza Nurdiyana', title:'X I', class:'X I'},
+  xi23:{username:'siswa', password:'kiran', role:'student', name:'Kirani Dewi Hapsari', title:'X I', class:'X I'},
+  xi24:{username:'siswa', password:'tofik', role:'student', name:'Muhammad Tofikin', title:'X I', class:'X I'},
+  xi25:{username:'siswa', password:'myies', role:'student', name:'Myiesha Nafeeza Ayu', title:'X I', class:'X I'},
+  xi26:{username:'siswa', password:'nesin', role:'student', name:'Nesi Nur Septika', title:'X I', class:'X I'},
+  xi27:{username:'siswa', password:'nirin', role:'student', name:'Nirina Putri Ramadhani', title:'X I', class:'X I'},
+  xi28:{username:'siswa', password:'nisau', role:'student', name:'Nisa Uswatun Khasanah', title:'X I', class:'X I'},
+  xi29:{username:'siswa', password:'nurul', role:'student', name:'Nurul Khoerunnisa', title:'X I', class:'X I'},
+  xi30:{username:'siswa', password:'putri', role:'student', name:'Putri Nur Alzyah', title:'X I', class:'X I'},
+  xi31:{username:'siswa', password:'qonit', role:'student', name:'Qonita Feylla Husna', title:'X I', class:'X I'},
+  xi32:{username:'siswa', password:'ridap', role:'student', name:'Rida Pratiwi', title:'X I', class:'X I'},
+  xi33:{username:'siswa', password:'safia', role:'student', name:'Safi Adiatha', title:'X I', class:'X I'},
+  xi34:{username:'siswa', password:'salsa', role:'student', name:'Salsahbila Cahya Utami', title:'X I', class:'X I'},
+  xi35:{username:'siswa', password:'wahid', role:'student', name:'Wahidah Nur Rohmah', title:'X I', class:'X I'},
+  xi36:{username:'siswa', password:'zulfa', role:'student', name:'Zulfa Maula', title:'X I', class:'X I'}
 };
 
 const CLASS_OPTIONS = ['XI D1', 'XI D2', 'XI E1', 'X I', 'X J', 'X K'];
@@ -696,30 +731,37 @@ function renderLoginFields(){
 async function doLogin(){
   const u = document.getElementById('uname').value.trim();
   const p = document.getElementById('pword').value;
-  const user = USERS[u];
   const errBox = document.getElementById('loginError');
   const loginBtn = document.getElementById('loginBtn');
 
-  if(!user || user.role !== loginRole){
+  // Multiple accounts can share the same login username (e.g. all students
+  // use "siswa"), so find every account matching the typed username + role,
+  // then disambiguate by password (and class, for students).
+  const candidateKeys = Object.keys(USERS).filter(k => USERS[k].username === u && USERS[k].role === loginRole);
+
+  if(candidateKeys.length === 0){
     errBox.style.display = 'block';
     return;
   }
+
+  const cls = loginRole === 'student' ? document.getElementById('uclass').value : null;
+
   loginBtn.disabled = true;
-  const effectivePassword = await getEffectivePassword(u);
+  let matchedKey = null;
+  for(const key of candidateKeys){
+    const candidate = USERS[key];
+    if(loginRole === 'student' && (!cls || cls !== candidate.class)) continue;
+    const effectivePassword = await getEffectivePassword(key);
+    if(p === effectivePassword){ matchedKey = key; break; }
+  }
   loginBtn.disabled = false;
 
-  if(p !== effectivePassword){
+  if(!matchedKey){
     errBox.style.display = 'block';
     return;
   }
-  if(loginRole === 'student'){
-    const cls = document.getElementById('uclass').value;
-    if(!cls || cls !== user.class){
-      errBox.style.display = 'block';
-      return;
-    }
-  }
-  session = {username:u, role:user.role};
+  const user = USERS[matchedKey];
+  session = {username:matchedKey, role:user.role};
   try{ localStorage.setItem('currentSession', JSON.stringify(session)); }catch(e){ /* non-fatal */ }
   if(user.role==='student') renderStudentApp();
   else renderTeacherApp();
