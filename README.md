@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LMS Bahasa Inggris Mr. Hanif</title>
+<title>Descriptive Text Classroom</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -24,12 +24,14 @@
   }
   *{box-sizing:border-box;}
   html,body{height:100%;}
+  html{overscroll-behavior-y:none;}
   body{
     margin:0;
     background:var(--paper);
     color:var(--ink-soft);
     font-family:'Inter',sans-serif;
     -webkit-font-smoothing:antialiased;
+    overscroll-behavior-y:none;
   }
   h1,h2,h3{font-family:'Lora',serif; color:var(--ink); margin:0 0 8px;}
   .mono{font-family:'IBM Plex Mono',monospace; letter-spacing:.04em;}
@@ -136,27 +138,147 @@
   .badge.sage{background:var(--sage-bg); color:var(--sage);}
   .badge.clay{background:var(--clay-bg); color:var(--clay);}
 
+  /* ===== Student: reading layout w/ timer progress ===== */
+  .read-shell{display:flex; gap:18px; align-items:stretch;}
+  .bookmark{
+    width:14px; border-radius:8px; background:#EEEBE1; position:relative; overflow:hidden; flex-shrink:0;
+  }
+  .bookmark-fill{
+    position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(180deg,var(--mustard),var(--mustard-dark));
+    height:0%; transition:height 1s linear;
+  }
+  .materi-box{
+    flex:1; max-height:440px; overflow-y:auto; padding-right:6px; border-left:3px solid #E9DDBE; padding-left:20px;
+  }
+  .materi-box p{line-height:1.85; font-size:14.5px; margin:0 0 14px;}
+  .materi-box h3{font-size:16px; margin-top:22px;}
+  .materi-box .contoh{
+    background:#FBF9F4; border:1px dashed #DDD3BB; border-radius:10px; padding:16px 18px; margin:12px 0;
+    font-size:14px; line-height:1.8;
+  }
+  .materi-box .contoh .judul{font-family:'Lora',serif; font-weight:600; color:var(--ink); margin-bottom:6px;}
+
+  /* ===== Pinned reading passage (for reading-comprehension quiz questions) ===== */
+  .reading-pin{
+    position:sticky; top:10px; z-index:4;
+    max-height:250px; overflow-y:auto;
+    margin:4px 0 18px; border-radius:12px; box-shadow:var(--shadow);
+    background:var(--card); border:1px solid var(--paper-line);
+  }
+  .reading-pin .contoh{margin:0; border:none; border-radius:0; box-shadow:none;}
+  .reading-pin-tag{
+    position:sticky; top:0; z-index:1; display:flex; align-items:center; gap:6px;
+    background:var(--mustard); color:var(--ink); font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    padding:7px 16px; border-radius:12px 12px 0 0;
+  }
+  .fullscreen-btn{
+    position:sticky; top:0; float:right; margin:-2px 0 10px 12px; z-index:5;
+    background:var(--ink); color:#F3EFE4; border:none; padding:7px 13px; border-radius:8px;
+    font-size:12px; font-weight:600; font-family:'Inter',sans-serif;
+  }
+  .fullscreen-btn:hover{background:#141B2E;}
+  #materiCard.is-fullscreen{
+    position:fixed; inset:0; z-index:1000; border-radius:0; overflow-y:auto;
+    background:var(--paper); padding:28px clamp(16px,6vw,80px);
+  }
+  #materiCard.is-fullscreen .materi-box{max-height:none;}
+  #materiCard.is-fullscreen-fallback{
+    position:fixed; inset:0; z-index:1000; border-radius:0; overflow-y:auto;
+    background:var(--paper); padding:28px clamp(16px,6vw,80px); margin:0;
+  }
+  #materiCard.is-fullscreen-fallback .materi-box{max-height:none;}
+  .read-progress-row{
+    display:flex; align-items:center; justify-content:space-between; margin-top:16px; gap:16px; flex-wrap:wrap;
+  }
+  .progress-text{font-size:12.5px; color:#8A8F9F; font-family:'IBM Plex Mono',monospace;}
+  .btn-ghost{
+    background:#EEEBE1; color:#9AA0B4; border:none; padding:11px 20px; border-radius:9px;
+    font-size:13.5px; font-weight:600;
+  }
   .btn-mustard{
     background:var(--mustard); color:var(--ink); border:none; padding:11px 20px; border-radius:9px;
     font-size:13.5px; font-weight:700;
   }
   .btn-mustard:hover{background:var(--mustard-dark);}
-  .btn-mustard:disabled{opacity:.55; cursor:not-allowed;}
+  .btn-mustard:disabled, .btn-ghost:disabled{opacity:.55; cursor:not-allowed;}
 
-  /* ===== Status panel (used by settings success message) ===== */
+  /* ===== Quiz ===== */
+  .q-block{margin-bottom:24px; padding-bottom:22px; border-bottom:1px solid var(--paper-line);}
+  .q-block:last-child{border-bottom:none;}
+  .q-num{
+    display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px;
+    background:var(--ink); color:var(--mustard); border-radius:7px; font-family:'IBM Plex Mono',monospace;
+    font-size:12px; font-weight:700; margin-right:8px;
+  }
+  .q-text{font-size:14.5px; font-weight:600; color:var(--ink); display:inline; }
+  .options{margin-top:12px; display:flex; flex-direction:column; gap:8px;}
+  .option{
+    display:flex; align-items:center; gap:10px; padding:9px 12px; border:1.5px solid var(--paper-line);
+    border-radius:9px; font-size:13.5px; cursor:pointer;
+  }
+  .option:hover{border-color:var(--mustard);}
+  .option input{accent-color:var(--mustard-dark);}
+  .option.selected{border-color:var(--mustard-dark); background:#FBF3DE;}
+  .option.correct-answer{border-color:var(--sage); background:var(--sage-bg);}
+  .option.wrong-answer{border-color:var(--clay); background:var(--clay-bg);}
+  .option.locked{cursor:default;}
+  .option .mark-icon{margin-left:auto; font-weight:700; font-size:13px;}
+
+  /* ===== Status / result panels ===== */
   .status-panel{
     display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:12px; margin-bottom:20px;
   }
+  .status-panel.waiting{background:#FBF3DE; border:1px solid #EFD9A0;}
   .status-panel.done{background:var(--sage-bg); border:1px solid #C7DCC9;}
   .status-icon{
     width:38px;height:38px;border-radius:50%; display:flex;align-items:center;justify-content:center;
     font-size:18px; flex-shrink:0;
   }
+  .status-panel.waiting .status-icon{background:var(--mustard); color:var(--ink);}
   .status-panel.done .status-icon{background:var(--sage); color:#fff;}
   .status-panel .stxt strong{display:block; font-size:14px; color:var(--ink); font-family:'Lora',serif;}
   .status-panel .stxt span{font-size:12.5px; color:#7C8398;}
+  .score-big{font-family:'Lora',serif; font-size:30px; font-weight:700; color:var(--ink);}
+
+  /* ===== Appreciation ===== */
+  .appreciation-panel{
+    border-radius:12px; padding:18px 20px; margin-bottom:20px; display:flex; gap:14px; align-items:flex-start;
+  }
+  .appreciation-panel.pending{background:#F6F4EC; border:1px dashed #DDD3BB;}
+  .appreciation-panel.given{background:var(--sage-bg); border:1px solid #C7DCC9;}
+  .appreciation-panel .aicon{font-size:22px;}
+  .appreciation-panel strong{display:block; font-family:'Lora',serif; color:var(--ink); font-size:14.5px; margin-bottom:4px;}
+  .appreciation-panel p{margin:0; font-size:13.5px; color:var(--ink-soft);}
+  .appreciation-panel span.meta{font-size:11.5px; color:#9AA0B4; font-family:'IBM Plex Mono',monospace;}
+
+  .chip-row{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0;}
+  .chip{
+    border:1.5px solid var(--paper-line); background:#fff; padding:8px 14px; border-radius:20px;
+    font-size:12.5px; font-weight:600; color:var(--ink-soft);
+  }
+  .chip:hover{border-color:var(--mustard);}
+  .chip.active{background:var(--mustard); border-color:var(--mustard-dark); color:var(--ink);}
+  textarea.appr-input{
+    width:100%; padding:11px 13px; border:1.5px solid var(--paper-line); border-radius:9px;
+    font-family:'Inter',sans-serif; font-size:13.5px; min-height:64px; resize:vertical; background:#FDFCF9;
+  }
+  textarea.appr-input:focus{outline:none; border-color:var(--mustard);}
 
   /* ===== Teacher dashboard ===== */
+  .roster{display:flex; flex-direction:column; gap:10px;}
+  .roster-row{
+    display:flex; align-items:center; justify-content:space-between; padding:14px 16px;
+    border:1.5px solid var(--paper-line); border-radius:11px; transition:.15s;
+  }
+  .roster-row:hover{border-color:var(--mustard);}
+  .roster-left{display:flex; align-items:center; gap:12px;}
+  .avatar{
+    width:36px;height:36px;border-radius:50%; background:var(--ink); color:var(--mustard);
+    display:flex;align-items:center;justify-content:center; font-family:'Lora',serif;font-weight:700;font-size:14px;
+  }
+  .roster-name{font-weight:600; color:var(--ink); font-size:14px;}
+  .roster-sub{font-size:11.5px; color:#9AA0B4; font-family:'IBM Plex Mono',monospace;}
   .btn-small{
     background:var(--ink); color:#F3EFE4; border:none; padding:8px 14px; border-radius:8px; font-size:12.5px; font-weight:600;
   }
@@ -167,10 +289,41 @@
   }
   .back-link:hover{color:var(--ink);}
 
+  .review-block{
+    border:1.5px solid var(--paper-line); border-radius:12px; padding:16px 18px; margin-bottom:14px;
+  }
+  .review-block .jawaban{
+    background:#F6F4EC; border-radius:8px; padding:10px 13px; font-size:13.5px; margin:10px 0; color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+
   .loading-note{font-size:13px; color:#9AA0B4; padding:20px 0;}
 
-  /* ===== Home tiles (shared by assignment tiles) ===== */
+  /* ===== Student home: tabs ===== */
+  .tab-bar{
+    display:flex; gap:6px; background:#F1EEE3; padding:4px; border-radius:12px; margin-bottom:22px;
+  }
+  .tab-btn{
+    flex:1; border:none; background:transparent; padding:10px 12px; border-radius:9px;
+    font-size:13px; font-weight:600; color:#8A8F9F;
+  }
+  .tab-btn.active{background:var(--ink); color:#F3EFE4;}
+  .tab-btn:hover:not(.active){color:var(--ink);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .empty-note{font-size:13px; color:#9AA0B4; margin:0;}
+
+  /* ===== Student home ===== */
+  .material-tile{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    padding:18px 20px; border:1.5px solid var(--paper-line); border-radius:13px;
+  }
   .tile-left{display:flex; align-items:center; gap:14px;}
+  .status-dot{
+    width:14px; height:14px; border-radius:50%; flex-shrink:0; background:#C9C6BA;
+    box-shadow:0 0 0 4px #F1EEE3;
+  }
+  .status-dot.done{background:var(--sage); box-shadow:0 0 0 4px var(--sage-bg);}
   .tile-icon{
     width:42px; height:42px; border-radius:11px; background:var(--ink); color:var(--mustard);
     display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-weight:700; font-size:17px;
@@ -178,26 +331,14 @@
   .tile-title{font-family:'Lora',serif; font-weight:600; color:var(--ink); font-size:15px;}
   .tile-sub{font-size:12px; color:#9AA0B4; font-family:'IBM Plex Mono',monospace; margin-top:2px;}
 
-  /* ===== Assignments ===== */
-  .assignment-tile{
-    display:flex; align-items:center; justify-content:space-between; gap:14px;
-    padding:16px 18px; border:1.5px solid var(--paper-line); border-radius:13px;
-  }
-  .assignment-tile .tile-icon{background:var(--clay); color:#fff;}
-  .assignment-actions{display:flex; align-items:center; gap:8px; flex-shrink:0;}
-  .btn-danger-ghost{
-    background:transparent; border:1.5px solid var(--clay); color:var(--clay);
-    padding:8px 13px; border-radius:8px; font-size:12.5px; font-weight:600;
-  }
-  .btn-danger-ghost:hover{background:var(--clay-bg);}
-  .empty-note{font-size:13px; color:#9AA0B4; padding:6px 2px;}
-
   .hidden{display:none !important;}
   ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-thumb{background:#DDD3BB; border-radius:8px;}
 
   @media(max-width:600px){
     .card{padding:20px 18px;}
+    .read-shell{gap:10px;}
+    .materi-box{max-height:360px; padding-left:14px;}
   }
 </style>
 </head>
@@ -206,12 +347,157 @@
 
 <script>
 /* ============ Static config ============ */
+const READ_MINUTES = 5;
+const READ_SECONDS = READ_MINUTES * 60;
+
 const USERS = {
   arhamhanif:{password:'guru123', role:'teacher', name:'Mr. Arham Hanif', title:'English Teacher'},
-  Tia:{password:'siswa', role:'student', name:'Tia', title:'XI D1', class:'XI D1'}
+  Tia:{password:'siswa', role:'student', name:'Tia', title:'XI D1', class:'XI D1'},
+  Cahya:{password:'siswa', role:'student', name:'Cahya', title:'XI E1', class:'XI E1'},
+  inayah:{password:'siswa', role:'student', name:'Inayah', title:'X I', class:'X I'}
 };
 
-const CLASS_OPTIONS = ['XI D1', 'XI D2', 'XI E1'];
+const CLASS_OPTIONS = ['XI D1', 'XI D2', 'XI E1', 'X I', 'X J', 'X K'];
+
+// Materials are scoped to classes so more materials/classes can be added later
+// without reworking the navigation structure.
+const MATERIALS = [
+  { id:'descriptive-people', title:'Descriptive Text: People', subtitle:'Reading + Quiz', classes:['X I', 'X J', 'X K'] }
+];
+
+// External tasks are simple outbound links (e.g. tools/simulations hosted elsewhere)
+// assigned to one or more classes. They open in a new tab and aren't auto-tracked.
+// (Empty for now — add entries here later with the shape
+// {id, title, subtitle, url, classes} if an outbound task is needed again.)
+const EXTERNAL_TASKS = [];
+
+// In-app worksheets: short, auto-corrected practice sets scoped to one or more
+// classes. Unlike EXTERNAL_TASKS these are tracked, so the teacher can see who
+// has completed each one and with what score. Each question has the same shape
+// as QUIZ questions ({id, text, options, correct}).
+const WORKSHEETS = [
+  {
+    id:'ws-descriptive-x',
+    title:'Worksheet: Descriptive Text',
+    subtitle:'Short practice &middot; 2 questions',
+    classes:['X I', 'X J', 'X K'],
+    questions:[
+      {id:'wd1', text:'Which part of a descriptive text introduces who or what is being described?', options:[
+        'Description', 'Identification', 'Orientation', 'Resolution'
+      ], correct:1},
+      {id:'wd2', text:'Which sentence is a correct example of describing someone using the simple present tense?', options:[
+        'She was a kind and patient teacher.',
+        'She is a kind and patient teacher.',
+        'She will be a kind and patient teacher.',
+        'She being a kind and patient teacher.'
+      ], correct:1}
+    ]
+  },
+  {
+    id:'ws-narrative-xi',
+    title:'Worksheet: Narrative Text',
+    subtitle:'Short practice &middot; 2 questions',
+    classes:['XI D1', 'XI D2', 'XI E1'],
+    questions:[
+      {id:'wn1', text:'What is the main purpose of a narrative text?', options:[
+        'To describe what a person or place looks like',
+        'To entertain the reader with a sequence of imagined or real events',
+        'To persuade the reader to agree with an opinion',
+        'To explain the steps of doing something'
+      ], correct:1},
+      {id:'wn2', text:'Which of the following is part of the typical generic structure of a narrative text?', options:[
+        'Identification &rarr; Description',
+        'General Statement &rarr; Explanation',
+        'Orientation &rarr; Complication &rarr; Resolution',
+        'Thesis &rarr; Argument &rarr; Reiteration'
+      ], correct:2}
+    ]
+  }
+];
+
+// Summative assessments ("ulangan harian", etc.) live in their own tab, separate from
+// the formative quiz attached to each material. Empty for now — add entries here later
+// with the same shape as MATERIALS ({id, title, subtitle, classes}) once a summative
+// test is ready to publish.
+const SUMMATIVE_ASSESSMENTS = [];
+
+// A separate short reading passage used only for the "Reading Comprehension" part of
+// the quiz — different person from the one used as the teaching example above.
+const READING_PASSAGE_HTML = `
+  <div class="contoh" style="margin:0;">
+    <div class="judul">Farhan, My Older Brother</div>
+    Farhan is my older brother. He is nineteen years old and studies at a university in Bandung.
+    He is a tall and athletic young man with short curly hair and a bright smile. He always wears
+    glasses because he has to read a lot for his studies.<br><br>
+    Farhan is a hardworking and disciplined person. Every morning, he jogs around the neighbourhood
+    before he starts studying. He is also very friendly and easygoing, so he has a lot of close friends.
+    Besides studying, Farhan loves playing the guitar, and he often plays it to relax after a long day.<br><br>
+    Although he looks calm most of the time, Farhan is actually very funny once you get to know him.
+    He always makes our family laugh with his jokes during dinner.
+  </div>
+`;
+
+const QUIZ = [
+  // ---- Part A: Material comprehension ----
+  {id:'q1', section:'comprehension', text:'What is the main purpose of a descriptive text about a person?', options:[
+    'To tell a sequence of events that happened to someone',
+    "To describe a person's physical appearance and personality in detail",
+    'To persuade the reader to meet that person',
+    "To explain the steps of doing something a person does"
+  ], correct:1},
+  {id:'q2', section:'comprehension', text:'What does the "Identification" part of a descriptive text about people usually contain?', options:[
+    "A detailed list of the person's hobbies",
+    'A conclusion about the writer\'s feelings',
+    'A general introduction of who the person is and their relation to the writer',
+    "A comparison between two people"
+  ], correct:2},
+  {id:'q3', section:'comprehension', text:'In the "Description" part of a descriptive text about a person, what is usually explained aspect by aspect?', options:[
+    'The chronological order of events in the person\'s life',
+    "The person's physical appearance and personality/character traits",
+    'A set of instructions the person follows',
+    'The advantages and disadvantages of knowing the person'
+  ], correct:1},
+  {id:'q4', section:'comprehension', text:'Which of the following is an example of an adjective used to describe a person\'s character, not their physical appearance?', options:[
+    'tall', 'patient', 'curly', 'brown-eyed'
+  ], correct:1},
+  {id:'q5', section:'comprehension', text:'Which tense is dominantly used when writing a descriptive text about a person?', options:[
+    'Simple past tense', 'Simple future tense', 'Simple present tense', 'Present continuous tense'
+  ], correct:2},
+  {id:'q6', section:'comprehension', text:'Which of the following sentences uses a linking verb correctly to describe someone?', options:[
+    'She run every morning before school.',
+    'She is a cheerful and friendly teacher.',
+    'She running to school every day.',
+    'She ran a friendly teacher.'
+  ], correct:1},
+
+  // ---- Part B: Reading comprehension (based on the passage "Farhan, My Older Brother") ----
+  {id:'q7', section:'reading', text:'Who is being described in the text?', options:[
+    "The writer's father", "The writer's older brother", "The writer's friend", "The writer's classmate"
+  ], correct:1},
+  {id:'q8', section:'reading', text:'According to the text, why does Farhan always wear glasses?', options:[
+    'Because he wants to look fashionable',
+    'Because he has to read a lot for his studies',
+    'Because his eyes are naturally brown',
+    'Because he plays the guitar every day'
+  ], correct:1},
+  {id:'q9', section:'reading', text:'Which sentence from the text belongs to the "Identification" part?', options:[
+    '"He always makes our family laugh with his jokes during dinner."',
+    '"Farhan is my older brother. He is nineteen years old and studies at a university in Bandung."',
+    '"Every morning, he jogs around the neighbourhood before he starts studying."',
+    '"Farhan loves playing the guitar."'
+  ], correct:1},
+  {id:'q10', section:'reading', text:'Which words from the text are adjectives describing Farhan\'s physical appearance?', options:[
+    'hardworking and disciplined', 'friendly and easygoing', 'tall and athletic', 'funny and calm'
+  ], correct:2},
+  {id:'q11', section:'reading', text:'What can we conclude about Farhan\'s personality from the text?', options:[
+    'He is lazy and unfriendly',
+    'He is hardworking, friendly, and secretly funny',
+    'He dislikes spending time with his family',
+    'He never studies and only plays music'
+  ], correct:1}
+];
+
+const APPRECIATION_CHIPS = ['Good Job!', 'Excellent Work!', 'Great Effort!', 'Well Done!', 'Keep Practicing!'];
 
 function teacherUser(){
   const key = Object.keys(USERS).find(u => USERS[u].role === 'teacher');
@@ -221,22 +507,66 @@ function teacherUser(){
 let session = null; // {username, role}
 
 /* ============ Storage helpers (persist across reloads) ============ */
-async function loadAssignments(){
-  try{
-    const res = await window.storage.get('assignments', true);
-    if(res && res.value) return JSON.parse(res.value);
-  }catch(e){ /* none saved yet */ }
-  return [];
+function defaultSubmission(){
+  return {
+    readStartedAt:null,
+    answers:null,
+    submittedAt:null,
+    score:null,
+    correctCount:null,
+    totalQuestions:QUIZ.length,
+    appreciation:null,
+    appreciationAt:null
+  };
 }
 
-async function saveAssignments(list){
+async function loadSubmission(username){
   try{
-    await window.storage.set('assignments', JSON.stringify(list), true);
-    return true;
+    const res = await window.storage.get('submission:' + username, true);
+    if(res && res.value){
+      return Object.assign(defaultSubmission(), JSON.parse(res.value));
+    }
+  }catch(e){ /* not found yet, fall through to default */ }
+  return defaultSubmission();
+}
+
+async function saveSubmission(username, sub){
+  try{
+    await window.storage.set('submission:' + username, JSON.stringify(sub), true);
   }catch(e){
-    console.error('Could not save assignments:', e);
-    return false;
+    console.error('Could not save progress:', e);
   }
+  return sub;
+}
+
+function defaultWorksheetSubmission(worksheet){
+  return {
+    answers:null,
+    submittedAt:null,
+    score:null,
+    correctCount:null,
+    totalQuestions:worksheet.questions.length
+  };
+}
+
+async function loadWorksheetSubmission(worksheetId, username){
+  const worksheet = WORKSHEETS.find(w => w.id === worksheetId);
+  try{
+    const res = await window.storage.get('wsSubmission:' + worksheetId + ':' + username, true);
+    if(res && res.value){
+      return Object.assign(defaultWorksheetSubmission(worksheet), JSON.parse(res.value));
+    }
+  }catch(e){ /* not found yet, fall through to default */ }
+  return defaultWorksheetSubmission(worksheet);
+}
+
+async function saveWorksheetSubmission(worksheetId, username, sub){
+  try{
+    await window.storage.set('wsSubmission:' + worksheetId + ':' + username, JSON.stringify(sub), true);
+  }catch(e){
+    console.error('Could not save worksheet progress:', e);
+  }
+  return sub;
 }
 
 async function getEffectivePassword(username){
@@ -264,6 +594,12 @@ function fmtTime(ts){
   const d = new Date(ts);
   return d.toLocaleString('en-US',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
 }
+function fmtClock(totalSeconds){
+  const m = Math.floor(totalSeconds/60);
+  const s = totalSeconds%60;
+  return m + ':' + String(s).padStart(2,'0');
+}
+
 /* ============ LOGIN ============ */
 let loginRole = 'student';
 
@@ -271,9 +607,9 @@ function renderLogin(){
   render(`
     <div class="login-wrap">
       <div class="login-card">
-        <div class="mark-big">H</div>
+        <div class="mark-big">D</div>
         <h1>Sign In</h1>
-        <p class="sub">Access your assignments, or review your students' work.</p>
+        <p class="sub">Access your reading material and quiz, or review your students' work.</p>
         <div class="role-toggle">
           <button type="button" class="role-btn" data-role="student">Student Login</button>
           <button type="button" class="role-btn" data-role="teacher">Teacher Login</button>
@@ -352,20 +688,25 @@ async function doLogin(){
     }
   }
   session = {username:u, role:user.role};
+  try{ await window.storage.set('currentSession', JSON.stringify(session), false); }catch(e){ /* non-fatal */ }
   if(user.role==='student') renderStudentApp();
   else renderTeacherApp();
 }
 
-function logout(){ session=null; renderLogin(); }
+async function logout(){
+  session = null;
+  try{ await window.storage.delete('currentSession', false); }catch(e){ /* non-fatal */ }
+  renderLogin();
+}
 
 function topbar(roleLabel){
   const user = USERS[session.username];
   return `
     <div class="topbar">
       <div class="brand">
-        <div class="mark">H</div>
+        <div class="mark">D</div>
         <div class="brand-text">
-          <div class="name">LMS Bahasa Inggris Mr. Hanif</div>
+          <div class="name">Descriptive Text Classroom</div>
           <div class="role">${roleLabel}</div>
         </div>
       </div>
@@ -389,55 +730,262 @@ async function renderStudentApp(){
   renderStudentHome();
 }
 
-async function renderStudentHome(){
-  const main = document.getElementById('studentMain');
-  main.innerHTML = `<p class="loading-note">Loading your assignments...</p>`;
-  const assignments = await loadAssignments();
+// Remembers which tab the student last had open, so returning to Home via
+// "Back to Home" links doesn't reset them to the first tab every time.
+let studentActiveTab = 'materi';
 
-  const assignmentTiles = assignments.length === 0
-    ? `<p class="empty-note">No assignments yet. Check back later.</p>`
-    : assignments.slice().reverse().map(a => `
-        <div class="assignment-tile">
+const STUDENT_TABS = [
+  { id:'materi', label:'Materi' },
+  { id:'worksheet', label:'Worksheet' },
+  { id:'asesmen', label:'Asesmen' }
+];
+
+async function renderStudentHome(tab){
+  const main = document.getElementById('studentMain');
+  main.innerHTML = `<p class="loading-note">Loading your progress...</p>`;
+  if(tab) studentActiveTab = tab;
+
+  const sub = await loadSubmission(session.username);
+  const completed = !!sub.answers;
+  const myClass = USERS[session.username].class;
+
+  const myMaterials = MATERIALS.filter(m => m.classes.includes(myClass));
+  const myTasks = EXTERNAL_TASKS.filter(t => t.classes.includes(myClass));
+  const myWorksheets = WORKSHEETS.filter(w => w.classes.includes(myClass));
+  const mySummatives = SUMMATIVE_ASSESSMENTS.filter(a => a.classes.includes(myClass));
+
+  const worksheetSubs = {};
+  for(const w of myWorksheets){
+    worksheetSubs[w.id] = await loadWorksheetSubmission(w.id, session.username);
+  }
+
+  const tabBarHtml = STUDENT_TABS.map(t => `
+    <button type="button" class="tab-btn ${studentActiveTab===t.id?'active':''}" data-tab="${t.id}">${t.label}</button>
+  `).join('');
+
+  const materiPanel = `
+    ${myMaterials.length ? `
+    <div class="card">
+      <div class="material-tile">
+        <div class="tile-left">
+          <span class="status-dot ${completed ? 'done' : ''}"></span>
+          <div class="tile-icon">D</div>
+          <div>
+            <div class="tile-title">Descriptive Text</div>
+            <div class="tile-sub">${completed ? 'Completed &middot; score ' + sub.score + '%' : 'Reading + formative assessment &middot; min. ' + READ_MINUTES + ' min'}</div>
+          </div>
+        </div>
+        <button class="btn-mustard" id="openMateriBtn">${completed ? 'View Result' : 'Open'}</button>
+      </div>
+    </div>
+    ` : `
+    <div class="card"><p class="empty-note">No material assigned to your class yet.</p></div>
+    `}
+  `;
+
+  const worksheetTiles = myWorksheets.map(w => {
+    const ws = worksheetSubs[w.id];
+    const wDone = !!ws.answers;
+    return `
+      <div class="material-tile">
+        <div class="tile-left">
+          <span class="status-dot ${wDone ? 'done' : ''}"></span>
+          <div class="tile-icon">W</div>
+          <div>
+            <div class="tile-title">${w.title}</div>
+            <div class="tile-sub">${wDone ? 'Completed &middot; score ' + ws.score + '%' : w.subtitle}</div>
+          </div>
+        </div>
+        <button class="btn-mustard" data-worksheet="${w.id}">${wDone ? 'View Result' : 'Open'}</button>
+      </div>
+    `;
+  }).join('');
+
+  const taskTiles = myTasks.map(t => `
+    <div class="material-tile">
+      <div class="tile-left">
+        <div class="tile-icon">T</div>
+        <div>
+          <div class="tile-title">${t.title}</div>
+          <div class="tile-sub">${t.subtitle}</div>
+        </div>
+      </div>
+      <a class="btn-mustard" style="text-decoration:none; display:inline-flex; align-items:center;" href="${t.url}" target="_blank" rel="noopener noreferrer">Open</a>
+    </div>
+  `).join('');
+
+  const worksheetPanel = `
+    ${(worksheetTiles || taskTiles) ? `
+    <div class="card" style="display:flex; flex-direction:column; gap:14px;">
+      ${worksheetTiles}${taskTiles}
+    </div>
+    ` : `
+    <div class="card"><p class="empty-note">No worksheet assigned to your class yet.</p></div>
+    `}
+  `;
+
+  const asesmenPanel = `
+    ${mySummatives.length ? `
+    <div class="card" style="display:flex; flex-direction:column; gap:14px;">
+      ${mySummatives.map(a => `
+        <div class="material-tile">
           <div class="tile-left">
-            <div class="tile-icon">T</div>
+            <div class="tile-icon">A</div>
             <div>
               <div class="tile-title">${a.title}</div>
-              <div class="tile-sub">Given ${fmtTime(a.createdAt)}</div>
+              <div class="tile-sub">${a.subtitle || 'Summative assessment'}</div>
             </div>
           </div>
-          <button class="btn-mustard" data-open-assignment="${a.id}">Open</button>
+          <button class="btn-mustard" disabled>Coming soon</button>
         </div>
-      `).join('');
+      `).join('')}
+    </div>
+    ` : `
+    <div class="card"><p class="empty-note">No summative assessment (ulangan harian) has been published yet.</p></div>
+    `}
+  `;
 
   main.innerHTML = `
     <div class="eyebrow">Home</div>
     <h1 style="margin-bottom:4px;">Welcome, ${USERS[session.username].name}</h1>
-    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Here are the assignments your teacher has given.</p>
-    <div class="eyebrow">Assignments</div>
-    <div class="card" style="display:flex; flex-direction:column; gap:14px;">${assignmentTiles}</div>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Materi holds the reading + formative quiz, Worksheet holds external tasks, and Asesmen holds summative tests from your teacher.</p>
+    <div class="tab-bar" id="studentTabBar">${tabBarHtml}</div>
+    <div class="tab-panel ${studentActiveTab==='materi'?'active':''}" data-panel="materi">${materiPanel}</div>
+    <div class="tab-panel ${studentActiveTab==='worksheet'?'active':''}" data-panel="worksheet">${worksheetPanel}</div>
+    <div class="tab-panel ${studentActiveTab==='asesmen'?'active':''}" data-panel="asesmen">${asesmenPanel}</div>
   `;
 
-  main.querySelectorAll('[data-open-assignment]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const id = btn.getAttribute('data-open-assignment');
-      const list = await loadAssignments();
-      const a = list.find(x=>x.id===id);
-      if(a) renderStudentAssignmentView(a);
+  main.querySelectorAll('#studentTabBar .tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const tabId = btn.getAttribute('data-tab');
+      studentActiveTab = tabId;
+      main.querySelectorAll('#studentTabBar .tab-btn').forEach(b=> b.classList.toggle('active', b===btn));
+      main.querySelectorAll('.tab-panel').forEach(p=> p.classList.toggle('active', p.getAttribute('data-panel')===tabId));
+    });
+  });
+
+  if(myMaterials.length){
+    document.getElementById('openMateriBtn').onclick = ()=>{
+      if(completed){
+        renderStudentResultView(sub);
+      } else {
+        renderMateriView(sub);
+      }
+    };
+  }
+
+  main.querySelectorAll('[data-worksheet]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const wId = btn.getAttribute('data-worksheet');
+      const w = WORKSHEETS.find(x => x.id === wId);
+      const ws = worksheetSubs[wId];
+      if(ws.answers){
+        renderWorksheetResultView(w, ws);
+      } else {
+        renderWorksheetView(w, ws);
+      }
     });
   });
 }
 
-function renderStudentAssignmentView(assignment){
+/* ---- Worksheets: short, in-app, auto-corrected practice sets ---- */
+function renderWorksheetView(worksheet, ws){
   const main = document.getElementById('studentMain');
-  main.innerHTML = `
-    <button class="back-link" onclick="renderStudentHome()">&larr; Back to Home</button>
-    <div class="eyebrow">Assignment</div>
-    <h1 style="margin-bottom:4px;">${assignment.title}</h1>
-    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Given ${fmtTime(assignment.createdAt)} by ${teacherUser().name}.</p>
-    <div class="card" style="display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
-      <p style="font-size:13.5px; color:var(--ink-soft); margin:0; word-break:break-all;">${assignment.url}</p>
-      <a class="btn-mustard" href="${assignment.url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; display:inline-block;">Open Assignment &#8599;</a>
+
+  const questionsHtml = worksheet.questions.map((q, idx)=>`
+    <div class="q-block">
+      <span class="q-num">${idx+1}</span><span class="q-text">${q.text}</span>
+      <div class="options">
+        ${q.options.map((opt,oi)=>`
+          <label class="option" data-qid="${q.id}" data-oi="${oi}">
+            <input type="radio" name="${q.id}" value="${oi}">
+            <span>${opt}</span>
+          </label>
+        `).join('')}
+      </div>
     </div>
+  `).join('');
+
+  main.innerHTML = `
+    <button class="back-link" onclick="renderStudentHome('worksheet')">&larr; Back to Home</button>
+    <div class="eyebrow">Worksheet</div>
+    <h1 style="margin-bottom:4px;">${worksheet.title}</h1>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Answer all questions, then submit. Your answers will be corrected immediately.</p>
+    <div class="card">
+      ${questionsHtml}
+      <div style="display:flex; justify-content:flex-end;">
+        <button class="btn-mustard" id="submitWorksheet">Submit Answers</button>
+      </div>
+    </div>
+  `;
+
+  main.querySelectorAll('.option').forEach(o=>{
+    o.addEventListener('click', ()=>{
+      const qid = o.getAttribute('data-qid');
+      main.querySelectorAll(`.option[data-qid="${qid}"]`).forEach(x=>x.classList.remove('selected'));
+      o.classList.add('selected');
+      o.querySelector('input').checked = true;
+    });
+  });
+
+  document.getElementById('submitWorksheet').onclick = async ()=>{
+    let allAnswered = true;
+    const result = {};
+    worksheet.questions.forEach(q=>{
+      const checked = main.querySelector(`input[name="${q.id}"]:checked`);
+      if(!checked){ allAnswered=false; return; }
+      result[q.id] = parseInt(checked.value);
+    });
+    if(!allAnswered){
+      alert('Please answer all questions before submitting.');
+      return;
+    }
+    let correctCount = 0;
+    worksheet.questions.forEach(q=>{ if(result[q.id] === q.correct) correctCount++; });
+    const score = Math.round((correctCount/worksheet.questions.length)*100);
+
+    ws.answers = result;
+    ws.submittedAt = Date.now();
+    ws.correctCount = correctCount;
+    ws.score = score;
+    await saveWorksheetSubmission(worksheet.id, session.username, ws);
+    renderWorksheetResultView(worksheet, ws);
+  };
+}
+
+function renderWorksheetResultView(worksheet, ws){
+  const main = document.getElementById('studentMain');
+
+  const reviewHtml = worksheet.questions.map((q, idx)=>{
+    const chosen = ws.answers[q.id];
+    const optionsHtml = q.options.map((opt,oi)=>{
+      let cls = 'option locked';
+      let icon = '';
+      if(oi === q.correct){ cls += ' correct-answer'; icon = '&#10003;'; }
+      else if(oi === chosen){ cls += ' wrong-answer'; icon = '&#10007;'; }
+      return `<div class="${cls}"><span>${opt}</span><span class="mark-icon">${icon}</span></div>`;
+    }).join('');
+    return `
+      <div class="q-block">
+        <span class="q-num">${idx+1}</span><span class="q-text">${q.text}</span>
+        <div class="options">${optionsHtml}</div>
+      </div>
+    `;
+  }).join('');
+
+  main.innerHTML = `
+    <button class="back-link" onclick="renderStudentHome('worksheet')">&larr; Back to Home</button>
+    <div class="eyebrow">Worksheet Result</div>
+    <h1 style="margin-bottom:16px;">${worksheet.title}</h1>
+    <div class="status-panel done">
+      <div class="status-icon">&#10003;</div>
+      <div class="stxt" style="flex:1;">
+        <strong>Answers corrected automatically</strong>
+        <span>Submitted ${fmtTime(ws.submittedAt)} &middot; ${ws.correctCount} out of ${ws.totalQuestions} correct</span>
+      </div>
+      <div class="score-big">${ws.score}</div>
+    </div>
+    <div class="card">${reviewHtml}</div>
   `;
 }
 
@@ -511,7 +1059,295 @@ function renderStudentSettings(){
   };
 }
 
+function renderMateriView(sub){
+  const main = document.getElementById('studentMain');
+  main.innerHTML = `
+    <button class="back-link" onclick="renderStudentHome()">&larr; Back to Home</button>
+    <div class="eyebrow">Material &middot; Descriptive Text</div>
+    <h1 style="margin-bottom:4px;">Describing People With Words</h1>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Please spend at least ${READ_MINUTES} minutes on this page before moving on. The button below will unlock automatically when the time is up.</p>
+
+    <div class="card" id="materiCard">
+      <div class="read-shell">
+        <div class="bookmark"><div class="bookmark-fill" id="bookmarkFill"></div></div>
+        <div class="materi-box" id="materiBox">
+          <button class="fullscreen-btn" id="fullscreenBtn" type="button" title="Fullscreen">&#9974; Fullscreen</button>
+          <p><strong>What is a Descriptive Text About People?</strong><br>
+          A descriptive text is a type of text that describes the characteristics of a specific person, place,
+          animal, or thing in detail. When the object being described is a <em>person</em>, the text focuses on
+          two main things: what the person <em>looks like</em> (physical appearance) and what the person
+          <em>is like</em> (personality or character).</p>
+
+          <h3>Generic Structure</h3>
+          <p><strong>1. Identification</strong> &mdash; the opening part that introduces the person being described:
+          who they are, and their relationship to the writer (for example, a family member, a friend, or a
+          public figure).</p>
+          <p><strong>2. Description</strong> &mdash; the main part that details the person's characteristics,
+          usually organised aspect by aspect: first the physical appearance (height, body build, hair, face,
+          the way they dress), then the personality or character (habits, attitudes, and how they treat others).</p>
+
+          <h3>Language Features</h3>
+          <p>Descriptive texts about people often use:</p>
+          <p>&bull; <strong>Adjectives</strong> &mdash; to describe physical traits (e.g. <em>tall, slim, curly-haired</em>)
+          and personality traits (e.g. <em>patient, cheerful, friendly</em>).<br>
+          &bull; <strong>Simple present tense</strong> &mdash; because the text describes facts that are generally
+          true about the person, e.g. <em>"She teaches English at our school."</em><br>
+          &bull; <strong>Linking verbs</strong> &mdash; such as <em>is, are, has, looks, seems</em> &mdash; to connect
+          the person to their qualities, e.g. <em>"She is patient."</em><br>
+          &bull; <strong>Action verbs in the simple present</strong> &mdash; to describe habits, e.g.
+          <em>"He jogs every morning."</em><br>
+          &bull; <strong>Specific participants</strong> (a particular person's name, not just "a person") &mdash;
+          e.g. "Mrs. Rania Putri", instead of just "a teacher".</p>
+
+          <h3>Example Text (with structure &amp; language-feature notes)</h3>
+          <div class="contoh">
+            <div class="judul">My Favorite Teacher, Mrs. Rania Putri</div>
+            <p style="margin:0 0 6px;"><span class="badge mustard">Identification</span></p>
+            One of the people I admire most <span style="color:var(--clay); font-weight:700;">is</span> my
+            English teacher, <span style="text-decoration:underline; text-decoration-color:var(--mustard-dark); text-decoration-thickness:2px;">Mrs. Rania Putri</span>.
+            She <span style="color:var(--mustard-dark); font-weight:700;">teaches</span> at SMAN 1 Harapan Baru,
+            and she <span style="color:var(--mustard-dark); font-weight:700;">has</span> taught here for more than ten years.
+            <br><br>
+
+            <p style="margin:0 0 6px;"><span class="badge mustard">Description &mdash; Physical Appearance</span></p>
+            Mrs. Rania <span style="color:var(--clay); font-weight:700;">is</span> a
+            <span style="color:var(--sage); font-weight:700;">tall</span>,
+            <span style="color:var(--sage); font-weight:700;">slim</span> woman with long black hair that she
+            usually ties into a neat ponytail. Her eyes <span style="color:var(--clay); font-weight:700;">are</span>
+            <span style="color:var(--sage); font-weight:700;">bright brown</span>, and she always
+            <span style="color:var(--mustard-dark); font-weight:700;">wears</span> a
+            <span style="color:var(--sage); font-weight:700;">warm, friendly</span> smile. She usually
+            <span style="color:var(--mustard-dark); font-weight:700;">dresses</span> neatly in simple blouses and trousers.
+            <br><br>
+
+            <p style="margin:0 0 6px;"><span class="badge mustard">Description &mdash; Personality / Character</span></p>
+            Besides her appearance, Mrs. Rania <span style="color:var(--clay); font-weight:700;">has</span> a very
+            <span style="color:var(--sage); font-weight:700;">patient</span> and
+            <span style="color:var(--sage); font-weight:700;">cheerful</span> personality. She
+            <span style="color:var(--mustard-dark); font-weight:700;">explains</span> difficult grammar rules
+            slowly and clearly, and she never <span style="color:var(--mustard-dark); font-weight:700;">gets</span>
+            angry when students make mistakes. Her students love her because she
+            <span style="color:var(--clay); font-weight:700;">is</span>
+            <span style="color:var(--sage); font-weight:700;">friendly</span>,
+            <span style="color:var(--sage); font-weight:700;">funny</span>, and always ready to help.
+            <br><br>
+
+            For me, Mrs. Rania is not just a teacher; she is also a good friend who makes learning English enjoyable.
+          </div>
+
+          <p style="font-size:12.5px; margin-top:-4px;">
+            <span class="badge mustard" style="margin-right:6px;">mustard label</span> generic structure part &nbsp;&middot;&nbsp;
+            <span style="color:var(--sage); font-weight:700;">green bold</span> = adjective &nbsp;&middot;&nbsp;
+            <span style="color:var(--clay); font-weight:700;">red bold</span> = linking verb (be/has) &nbsp;&middot;&nbsp;
+            <span style="color:var(--mustard-dark); font-weight:700;">gold bold</span> = simple present action verb &nbsp;&middot;&nbsp;
+            <span style="text-decoration:underline; text-decoration-color:var(--mustard-dark);">underlined</span> = specific participant (name)
+          </p>
+
+          <h3>Summary</h3>
+          <p>When writing a descriptive text about a person, make sure you: (1) clearly introduce the person and
+          your relationship to them in the identification part, (2) describe their physical appearance and then
+          their personality/character in the description part using precise adjectives, and (3) use the simple
+          present tense consistently, supported by linking verbs (is, are, has) and everyday action verbs.</p>
+          <p style="color:#B3AA8E; font-size:12px; margin-top:24px;">&mdash; end of material &mdash;</p>
+        </div>
+      </div>
+      <div class="read-progress-row">
+        <span class="progress-text mono" id="progressText">Time remaining: ${fmtClock(READ_SECONDS)}</span>
+        <button class="btn-mustard" id="doneReadBtn" disabled>Continue to Quiz</button>
+      </div>
+    </div>
+  `;
+
+  const fill = document.getElementById('bookmarkFill');
+  const progressText = document.getElementById('progressText');
+  const doneBtn = document.getElementById('doneReadBtn');
+  const materiCard = document.getElementById('materiCard');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+  function updateFullscreenBtn(){
+    const isFs = document.fullscreenElement === materiCard;
+    fullscreenBtn.innerHTML = isFs ? '&#10005; Exit Fullscreen' : '&#9974; Fullscreen';
+    materiCard.classList.toggle('is-fullscreen', isFs);
+  }
+
+  fullscreenBtn.onclick = ()=>{
+    if(document.fullscreenElement){
+      document.exitFullscreen();
+    } else if(materiCard.requestFullscreen){
+      materiCard.requestFullscreen().catch(()=>{
+        // Fullscreen API blocked (e.g. unsupported browser) — fall back to a full-viewport overlay look.
+        materiCard.classList.toggle('is-fullscreen-fallback');
+      });
+    } else {
+      materiCard.classList.toggle('is-fullscreen-fallback');
+    }
+  };
+  document.addEventListener('fullscreenchange', updateFullscreenBtn);
+
+  if(!sub.readStartedAt){
+    sub.readStartedAt = Date.now();
+    saveSubmission(session.username, sub);
+  }
+
+  function tick(){
+    const elapsed = Math.floor((Date.now() - sub.readStartedAt)/1000);
+    const remaining = Math.max(0, READ_SECONDS - elapsed);
+    const pct = Math.min(100, Math.round((elapsed/READ_SECONDS)*100));
+    fill.style.height = pct + '%';
+    if(remaining > 0){
+      progressText.textContent = 'Time remaining: ' + fmtClock(remaining);
+    } else {
+      progressText.textContent = 'Reading time complete';
+      doneBtn.disabled = false;
+      clearInterval(timerHandle);
+    }
+  }
+  tick();
+  const timerHandle = setInterval(tick, 1000);
+
+  doneBtn.onclick = ()=>{
+    if(doneBtn.disabled) return;
+    clearInterval(timerHandle);
+    renderQuizView(sub);
+  };
+}
+
+function sectionLabel(section){
+  return section === 'reading' ? 'Part B &middot; Reading Comprehension (read the text below first)' : 'Part A &middot; Material Comprehension';
+}
+
+// Shared builder so the quiz page, the student result page, and the teacher review
+// page all render the same section headers + reading passage in the same place.
+function buildQuizBlocksHtml(optionsRenderer){
+  let html = '';
+  let lastSection = null;
+  QUIZ.forEach((q, idx)=>{
+    if(q.section !== lastSection){
+      lastSection = q.section;
+      html += `<div class="eyebrow" style="margin-top:${idx===0?'0':'22px'}; margin-bottom:${lastSection==='reading'?'10px':'12px'};">${sectionLabel(lastSection)}</div>`;
+      if(lastSection === 'reading'){
+        html += `<div class="reading-pin"><div class="reading-pin-tag">&#128204; Pinned passage &middot; scroll inside the box to read</div>${READING_PASSAGE_HTML}</div>`;
+      }
+    }
+    html += `
+      <div class="q-block">
+        <span class="q-num">${idx+1}</span><span class="q-text">${q.text}</span>
+        <div class="options">${optionsRenderer(q, idx)}</div>
+      </div>
+    `;
+  });
+  return html;
+}
+
+function renderQuizView(sub){
+  const main = document.getElementById('studentMain');
+
+  const questionsHtml = buildQuizBlocksHtml((q)=> q.options.map((opt,oi)=>`
+    <label class="option" data-qid="${q.id}" data-oi="${oi}">
+      <input type="radio" name="${q.id}" value="${oi}">
+      <span>${opt}</span>
+    </label>
+  `).join(''));
+
+  main.innerHTML = `
+    <button class="back-link" onclick="renderStudentHome()">&larr; Back to Home</button>
+    <div class="eyebrow">Quiz &middot; Descriptive Text</div>
+    <h1 style="margin-bottom:4px;">Check Your Understanding</h1>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Answer all questions, then submit. Your answers will be corrected immediately.</p>
+    <div class="card">
+      ${questionsHtml}
+      <div style="display:flex; justify-content:flex-end;">
+        <button class="btn-mustard" id="submitQuiz">Submit Answers</button>
+      </div>
+    </div>
+  `;
+
+  main.querySelectorAll('.option').forEach(o=>{
+    o.addEventListener('click', ()=>{
+      const qid = o.getAttribute('data-qid');
+      main.querySelectorAll(`.option[data-qid="${qid}"]`).forEach(x=>x.classList.remove('selected'));
+      o.classList.add('selected');
+      o.querySelector('input').checked = true;
+    });
+  });
+
+  document.getElementById('submitQuiz').onclick = async ()=>{
+    let allAnswered = true;
+    const result = {};
+    QUIZ.forEach(q=>{
+      const checked = main.querySelector(`input[name="${q.id}"]:checked`);
+      if(!checked){ allAnswered=false; return; }
+      result[q.id] = parseInt(checked.value);
+    });
+    if(!allAnswered){
+      alert('Please answer all questions before submitting.');
+      return;
+    }
+    let correctCount = 0;
+    QUIZ.forEach(q=>{ if(result[q.id] === q.correct) correctCount++; });
+    const score = Math.round((correctCount/QUIZ.length)*100);
+
+    sub.answers = result;
+    sub.submittedAt = Date.now();
+    sub.correctCount = correctCount;
+    sub.score = score;
+    await saveSubmission(session.username, sub);
+    renderStudentResultView(sub);
+  };
+}
+
+function renderStudentResultView(sub){
+  const main = document.getElementById('studentMain');
+
+  const reviewHtml = buildQuizBlocksHtml((q)=>{
+    const chosen = sub.answers[q.id];
+    return q.options.map((opt,oi)=>{
+      let cls = 'option locked';
+      let icon = '';
+      if(oi === q.correct){ cls += ' correct-answer'; icon = '&#10003;'; }
+      else if(oi === chosen){ cls += ' wrong-answer'; icon = '&#10007;'; }
+      return `<div class="${cls}"><span>${opt}</span><span class="mark-icon">${icon}</span></div>`;
+    }).join('');
+  });
+
+  const apprHtml = sub.appreciation
+    ? `<div class="appreciation-panel given">
+         <div class="aicon">&#127881;</div>
+         <div>
+           <strong>${sub.appreciation}</strong>
+           <p>From ${teacherUser().name}</p>
+           <span class="meta">${fmtTime(sub.appreciationAt)}</span>
+         </div>
+       </div>`
+    : `<div class="appreciation-panel pending">
+         <div class="aicon">&#128172;</div>
+         <div>
+           <strong>Waiting for your teacher's feedback</strong>
+           <p>Your teacher hasn't left a note on this submission yet.</p>
+         </div>
+       </div>`;
+
+  main.innerHTML = `
+    <button class="back-link" onclick="renderStudentHome()">&larr; Back to Home</button>
+    <div class="eyebrow">Quiz Result</div>
+    <h1 style="margin-bottom:16px;">Your Score</h1>
+    <div class="status-panel done">
+      <div class="status-icon">&#10003;</div>
+      <div class="stxt" style="flex:1;">
+        <strong>Answers corrected automatically</strong>
+        <span>Submitted ${fmtTime(sub.submittedAt)} &middot; ${sub.correctCount} out of ${sub.totalQuestions} correct</span>
+      </div>
+      <div class="score-big">${sub.score}</div>
+    </div>
+    ${apprHtml}
+    <div class="card">${reviewHtml}</div>
+  `;
+}
+
 /* ============ TEACHER APP ============ */
+let currentMaterialId = null;
+let currentWorksheetId = null;
+
 async function renderTeacherApp(){
   render(`
     <div id="app-inner">
@@ -526,140 +1362,353 @@ async function renderTeacherHome(){
   const main = document.getElementById('teacherMain');
   main.innerHTML = `<p class="loading-note">Loading...</p>`;
 
-  const assignments = await loadAssignments();
-  const assignmentTiles = assignments.length === 0
-    ? `<p class="empty-note">No assignments given yet.</p>`
-    : assignments.slice().reverse().map(a => `
-        <div class="assignment-tile">
-          <div class="tile-left">
-            <div class="tile-icon">T</div>
-            <div>
-              <div class="tile-title">${a.title}</div>
-              <div class="tile-sub">Given ${fmtTime(a.createdAt)}</div>
-            </div>
-          </div>
-          <div class="assignment-actions">
-            <button class="btn-small" data-preview-assignment="${a.id}">Preview</button>
-            <button class="btn-danger-ghost" data-delete-assignment="${a.id}">Delete</button>
-          </div>
+  const tiles = MATERIALS.map(m => `
+    <div class="material-tile">
+      <div class="tile-left">
+        <div class="tile-icon">D</div>
+        <div>
+          <div class="tile-title">${m.title}</div>
+          <div class="tile-sub">Assigned to ${m.classes.length} classes &middot; ${m.classes.join(', ')}</div>
         </div>
-      `).join('');
+      </div>
+      <button class="btn-mustard" data-material="${m.id}">Open</button>
+    </div>
+  `).join('');
+
+  const worksheetTiles = WORKSHEETS.map(w => `
+    <div class="material-tile">
+      <div class="tile-left">
+        <div class="tile-icon">W</div>
+        <div>
+          <div class="tile-title">${w.title}</div>
+          <div class="tile-sub">Assigned to ${w.classes.length} classes &middot; ${w.classes.join(', ')}</div>
+        </div>
+      </div>
+      <button class="btn-mustard" data-worksheet="${w.id}">Open</button>
+    </div>
+  `).join('');
+
+  const taskTiles = EXTERNAL_TASKS.map(t => `
+    <div class="material-tile">
+      <div class="tile-left">
+        <div class="tile-icon">T</div>
+        <div>
+          <div class="tile-title">${t.title}</div>
+          <div class="tile-sub">Assigned to ${t.classes.length} classes &middot; ${t.classes.join(', ')}</div>
+        </div>
+      </div>
+      <a class="btn-mustard" style="text-decoration:none; display:inline-flex; align-items:center;" href="${t.url}" target="_blank" rel="noopener noreferrer">Open link</a>
+    </div>
+  `).join('');
 
   main.innerHTML = `
     <div class="eyebrow">Home</div>
     <h1 style="margin-bottom:4px;">Welcome, ${USERS[session.username].name}</h1>
-    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Give assignments to your students and manage what's currently posted.</p>
-    <div class="eyebrow">Assignments</div>
-    <div class="card" style="display:flex; flex-direction:column; gap:14px;">
-      <button class="btn-mustard" id="newAssignmentBtn" style="align-self:flex-start;">+ Give New Assignment</button>
-      ${assignmentTiles}
-    </div>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Open a material or worksheet to see class progress and review student results.</p>
+    <div class="card" style="display:flex; flex-direction:column; gap:14px;">${tiles}</div>
+    ${worksheetTiles ? `<div class="card" style="display:flex; flex-direction:column; gap:14px;"><div class="eyebrow">Worksheets</div>${worksheetTiles}</div>` : ''}
+    ${taskTiles ? `<div class="card" style="display:flex; flex-direction:column; gap:14px;"><div class="eyebrow">External Tasks</div>${taskTiles}</div>` : ''}
   `;
 
-  document.getElementById('newAssignmentBtn').onclick = ()=> renderTeacherNewAssignment();
-
-  main.querySelectorAll('[data-preview-assignment]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const id = btn.getAttribute('data-preview-assignment');
-      const list = await loadAssignments();
-      const a = list.find(x=>x.id===id);
-      if(a) renderTeacherAssignmentPreview(a);
-    });
+  main.querySelectorAll('[data-material]').forEach(btn=>{
+    btn.addEventListener('click', ()=> renderTeacherClasses(btn.getAttribute('data-material')));
   });
-
-  main.querySelectorAll('[data-delete-assignment]').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const id = btn.getAttribute('data-delete-assignment');
-      if(!confirm('Delete this assignment? Students will no longer see it.')) return;
-      const list = await loadAssignments();
-      const next = list.filter(x=>x.id!==id);
-      await saveAssignments(next);
-      renderTeacherHome();
-    });
+  main.querySelectorAll('[data-worksheet]').forEach(btn=>{
+    btn.addEventListener('click', ()=> renderTeacherWorksheetClasses(btn.getAttribute('data-worksheet')));
   });
 }
 
-function renderTeacherNewAssignment(){
+function studentUsernamesByClass(cls){
+  return Object.keys(USERS).filter(u => USERS[u].role === 'student' && USERS[u].class === cls);
+}
+
+async function renderTeacherClasses(materialId){
+  currentMaterialId = materialId;
+  const material = MATERIALS.find(m => m.id === materialId);
   const main = document.getElementById('teacherMain');
+  main.innerHTML = `<p class="loading-note">Loading class data...</p>`;
+
+  const sectionsHtml = [];
+  for(const cls of material.classes){
+    const usernames = studentUsernamesByClass(cls);
+    let rowsHtml;
+    if(usernames.length === 0){
+      rowsHtml = `<p style="font-size:13px; color:#9AA0B4; padding:8px 4px;">No students enrolled in this class yet.</p>`;
+    } else {
+      const rows = [];
+      for(const username of usernames){
+        const user = USERS[username];
+        const s = await loadSubmission(username);
+        let badge;
+        if(!s.answers){
+          badge = s.readStartedAt
+            ? `<span class="badge mustard">Reading / In progress</span>`
+            : `<span class="badge gray">Not started</span>`;
+        } else if(!s.appreciation){
+          badge = `<span class="badge sage">Completed &middot; ${s.score}%</span>`;
+        } else {
+          badge = `<span class="badge sage">Completed &middot; ${s.score}% &middot; Appreciated</span>`;
+        }
+        const canReview = !!s.answers;
+        rows.push(`
+          <div class="roster-row">
+            <div class="roster-left">
+              <div class="avatar">${user.name.charAt(0)}</div>
+              <div>
+                <div class="roster-name">${user.name}</div>
+                <div class="roster-sub">${user.title}</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              ${badge}
+              <button class="btn-small" ${canReview?'':'disabled'} onclick="renderTeacherReview('${username}')">View</button>
+            </div>
+          </div>
+        `);
+      }
+      rowsHtml = `<div class="roster">${rows.join('')}</div>`;
+    }
+    sectionsHtml.push(`
+      <div class="card">
+        <div class="eyebrow">${cls}</div>
+        ${rowsHtml}
+      </div>
+    `);
+  }
+
   main.innerHTML = `
     <button class="back-link" onclick="renderTeacherHome()">&larr; Back to Home</button>
-    <div class="eyebrow">New Assignment</div>
-    <h1 style="margin-bottom:4px;">Give an Assignment</h1>
-    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Give it a title and a link. It will appear immediately on every student's home page.</p>
-    <div class="card" style="max-width:520px;">
-      <div class="login-error" id="assignmentError">Please fill in the title and a valid link.</div>
-      <div class="field">
-        <label for="assignmentTitle">Assignment Title</label>
-        <input id="assignmentTitle" type="text" placeholder="e.g. Weekly Grammar Exercise">
+    <div class="eyebrow">Material</div>
+    <h1 style="margin-bottom:4px;">${material.title}</h1>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Quizzes are corrected automatically. Your role here is to review each student's result and leave a short note of appreciation.</p>
+    ${sectionsHtml.join('')}
+  `;
+}
+
+async function renderTeacherReview(username){
+  const main = document.getElementById('teacherMain');
+  main.innerHTML = `<p class="loading-note">Loading submission...</p>`;
+  const user = USERS[username];
+  const sub = await loadSubmission(username);
+
+  const blocksHtml = buildQuizBlocksHtml((q)=>{
+    const chosen = sub.answers[q.id];
+    return q.options.map((opt,oi)=>{
+      let cls = 'option locked';
+      let icon = '';
+      if(oi === q.correct){ cls += ' correct-answer'; icon = '&#10003;'; }
+      else if(oi === chosen){ cls += ' wrong-answer'; icon = '&#10007;'; }
+      return `<div class="${cls}"><span>${opt}</span><span class="mark-icon">${icon}</span></div>`;
+    }).join('');
+  });
+
+  let selectedChip = APPRECIATION_CHIPS.includes(sub.appreciation) ? sub.appreciation : null;
+
+  const chipsHtml = APPRECIATION_CHIPS.map(c=>`
+    <button type="button" class="chip ${selectedChip===c?'active':''}" data-chip="${c}">${c}</button>
+  `).join('');
+
+  main.innerHTML = `
+    <button class="back-link" onclick="renderTeacherClasses(currentMaterialId)">&larr; Back to class list</button>
+    <div class="eyebrow">Review Submission</div>
+    <h1 style="margin-bottom:4px;">${user.name}</h1>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:18px;">Submitted ${fmtTime(sub.submittedAt)}</p>
+
+    <div class="status-panel done">
+      <div class="status-icon">&#10003;</div>
+      <div class="stxt" style="flex:1;">
+        <strong>Auto-corrected result</strong>
+        <span>${sub.correctCount} out of ${sub.totalQuestions} correct</span>
       </div>
-      <div class="field">
-        <label for="assignmentUrl">Assignment Link</label>
-        <input id="assignmentUrl" type="url" placeholder="https://...">
+      <div class="score-big">${sub.score}</div>
+    </div>
+
+    <div class="card">${blocksHtml}</div>
+
+    <div class="card">
+      <div class="eyebrow">Appreciation</div>
+      <h3 style="margin-bottom:10px;">Leave a note for ${user.name}</h3>
+      <div class="chip-row" id="chipRow">${chipsHtml}</div>
+      <textarea class="appr-input" id="apprText" placeholder="Write a short appreciation message...">${sub.appreciation && !APPRECIATION_CHIPS.includes(sub.appreciation) ? sub.appreciation : (sub.appreciation||'')}</textarea>
+      <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+        <button class="btn-mustard" id="sendApprBtn">${sub.appreciation ? 'Update Appreciation' : 'Send Appreciation'}</button>
       </div>
-      <button class="btn-mustard" id="publishAssignmentBtn" style="width:100%; margin-top:6px;">Publish to Students</button>
     </div>
   `;
 
-  document.getElementById('publishAssignmentBtn').onclick = async ()=>{
-    const errBox = document.getElementById('assignmentError');
-    errBox.style.display = 'none';
-    const title = document.getElementById('assignmentTitle').value.trim();
-    let url = document.getElementById('assignmentUrl').value.trim();
-
-    if(!title || !url){
-      errBox.textContent = 'Please fill in the title and a valid link.';
-      errBox.style.display = 'block';
-      return;
-    }
-    if(!/^https?:\/\//i.test(url)){
-      url = 'https://' + url;
-    }
-    try{ new URL(url); }catch(e){
-      errBox.textContent = 'That link doesn\'t look valid. Please check it and try again.';
-      errBox.style.display = 'block';
-      return;
-    }
-
-    const btn = document.getElementById('publishAssignmentBtn');
-    btn.disabled = true;
-    btn.textContent = 'Publishing...';
-
-    const list = await loadAssignments();
-    list.push({
-      id: 'a' + Date.now(),
-      title,
-      url,
-      createdAt: Date.now()
+  const apprText = document.getElementById('apprText');
+  main.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      main.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      apprText.value = chip.getAttribute('data-chip');
     });
-    const ok = await saveAssignments(list);
+  });
 
-    if(!ok){
-      btn.disabled = false;
-      btn.textContent = 'Publish to Students';
-      errBox.textContent = 'Could not publish the assignment. Please try again.';
-      errBox.style.display = 'block';
+  document.getElementById('sendApprBtn').onclick = async ()=>{
+    const msg = apprText.value.trim();
+    if(!msg){
+      alert('Please choose a quick note or write your own message.');
       return;
     }
-    renderTeacherHome();
+    sub.appreciation = msg;
+    sub.appreciationAt = Date.now();
+    await saveSubmission(username, sub);
+    renderTeacherReview(username);
   };
 }
 
-function renderTeacherAssignmentPreview(assignment){
+/* ---- Teacher: worksheet completion data ---- */
+async function renderTeacherWorksheetClasses(worksheetId){
+  currentWorksheetId = worksheetId;
+  const worksheet = WORKSHEETS.find(w => w.id === worksheetId);
   const main = document.getElementById('teacherMain');
+  main.innerHTML = `<p class="loading-note">Loading class data...</p>`;
+
+  const sectionsHtml = [];
+  for(const cls of worksheet.classes){
+    const usernames = studentUsernamesByClass(cls);
+    let rowsHtml;
+    if(usernames.length === 0){
+      rowsHtml = `<p style="font-size:13px; color:#9AA0B4; padding:8px 4px;">No students enrolled in this class yet.</p>`;
+    } else {
+      const rows = [];
+      for(const username of usernames){
+        const user = USERS[username];
+        const ws = await loadWorksheetSubmission(worksheetId, username);
+        const badge = ws.answers
+          ? `<span class="badge sage">Completed &middot; ${ws.score}%</span>`
+          : `<span class="badge gray">Not started</span>`;
+        rows.push(`
+          <div class="roster-row">
+            <div class="roster-left">
+              <div class="avatar">${user.name.charAt(0)}</div>
+              <div>
+                <div class="roster-name">${user.name}</div>
+                <div class="roster-sub">${user.title}</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              ${badge}
+              <button class="btn-small" ${ws.answers?'':'disabled'} onclick="renderTeacherWorksheetReview('${worksheetId}','${username}')">View</button>
+            </div>
+          </div>
+        `);
+      }
+      rowsHtml = `<div class="roster">${rows.join('')}</div>`;
+    }
+    sectionsHtml.push(`
+      <div class="card">
+        <div class="eyebrow">${cls}</div>
+        ${rowsHtml}
+      </div>
+    `);
+  }
+
   main.innerHTML = `
     <button class="back-link" onclick="renderTeacherHome()">&larr; Back to Home</button>
-    <div class="eyebrow">Assignment Preview</div>
-    <h1 style="margin-bottom:4px;">${assignment.title}</h1>
-    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">This is exactly what students see when they open this assignment.</p>
-    <div class="card" style="display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
-      <p style="font-size:13.5px; color:var(--ink-soft); margin:0; word-break:break-all;">${assignment.url}</p>
-      <a class="btn-mustard" href="${assignment.url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; display:inline-block;">Open Assignment &#8599;</a>
+    <div class="eyebrow">Worksheet</div>
+    <h1 style="margin-bottom:4px;">${worksheet.title}</h1>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Worksheets are corrected automatically. See at a glance who has completed each one and their score.</p>
+    ${sectionsHtml.join('')}
+  `;
+}
+
+async function renderTeacherWorksheetReview(worksheetId, username){
+  const worksheet = WORKSHEETS.find(w => w.id === worksheetId);
+  const main = document.getElementById('teacherMain');
+  main.innerHTML = `<p class="loading-note">Loading submission...</p>`;
+  const user = USERS[username];
+  const ws = await loadWorksheetSubmission(worksheetId, username);
+
+  const blocksHtml = worksheet.questions.map((q, idx)=>{
+    const chosen = ws.answers[q.id];
+    const optionsHtml = q.options.map((opt,oi)=>{
+      let cls = 'option locked';
+      let icon = '';
+      if(oi === q.correct){ cls += ' correct-answer'; icon = '&#10003;'; }
+      else if(oi === chosen){ cls += ' wrong-answer'; icon = '&#10007;'; }
+      return `<div class="${cls}"><span>${opt}</span><span class="mark-icon">${icon}</span></div>`;
+    }).join('');
+    return `
+      <div class="q-block">
+        <span class="q-num">${idx+1}</span><span class="q-text">${q.text}</span>
+        <div class="options">${optionsHtml}</div>
+      </div>
+    `;
+  }).join('');
+
+  main.innerHTML = `
+    <button class="back-link" onclick="renderTeacherWorksheetClasses(currentWorksheetId)">&larr; Back to class list</button>
+    <div class="eyebrow">Review Worksheet</div>
+    <h1 style="margin-bottom:4px;">${user.name}</h1>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:18px;">Submitted ${fmtTime(ws.submittedAt)}</p>
+
+    <div class="status-panel done">
+      <div class="status-icon">&#10003;</div>
+      <div class="stxt" style="flex:1;">
+        <strong>Auto-corrected result</strong>
+        <span>${ws.correctCount} out of ${ws.totalQuestions} correct</span>
+      </div>
+      <div class="score-big">${ws.score}</div>
     </div>
+
+    <div class="card">${blocksHtml}</div>
   `;
 }
 
 /* ============ INIT ============ */
-renderLogin();
+// Belt-and-suspenders block for Android pull-to-refresh: some mobile browsers
+// still trigger a full-page reload on a downward swipe from the very top of
+// the page even with overscroll-behavior set, which would otherwise look
+// like an unexpected logout. This stops that swipe from being treated as a
+// refresh gesture while still allowing normal scrolling everywhere else.
+let touchStartY = 0;
+document.addEventListener('touchstart', (e)=>{
+  touchStartY = e.touches[0].clientY;
+}, {passive:true});
+document.addEventListener('touchmove', (e)=>{
+  const touchY = e.touches[0].clientY;
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  if(scrollTop <= 0 && touchY > touchStartY){
+    e.preventDefault();
+  }
+}, {passive:false});
+
+// On load, check for a previously saved session so reloading the page
+// (or reopening it) keeps the user signed in instead of bouncing to Login.
+// Retries a couple of times in case the storage bridge isn't ready the
+// instant the script runs.
+async function readStoredSession(attempt){
+  attempt = attempt || 0;
+  try{
+    const res = await window.storage.get('currentSession', false);
+    return res && res.value ? res.value : null;
+  }catch(e){
+    if(attempt < 3){
+      await new Promise(r => setTimeout(r, 300));
+      return readStoredSession(attempt + 1);
+    }
+    return null;
+  }
+}
+
+async function restoreSession(){
+  render(`<div class="login-wrap"><p class="loading-note">Loading...</p></div>`);
+  try{
+    const raw = await readStoredSession();
+    if(raw){
+      const saved = JSON.parse(raw);
+      if(saved && saved.username && USERS[saved.username] && USERS[saved.username].role === saved.role){
+        session = saved;
+        if(session.role === 'student') { renderStudentApp(); return; }
+        else { renderTeacherApp(); return; }
+      }
+    }
+  }catch(e){ /* no saved session, fall through to login */ }
+  renderLogin();
+}
+restoreSession();
 </script>
 </body>
 </html>
