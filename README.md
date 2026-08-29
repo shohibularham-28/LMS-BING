@@ -191,16 +191,6 @@
   }
   .btn-danger-ghost:hover{background:var(--clay-bg);}
   .empty-note{font-size:13px; color:#9AA0B4; padding:6px 2px;}
-  .upload-drop{
-    border:1.5px dashed var(--paper-line); border-radius:11px; padding:22px 18px;
-    text-align:center; background:#FDFCF9;
-  }
-  .upload-drop input[type=file]{display:block; margin:0 auto; font-size:13px;}
-  .upload-drop .fname{margin-top:10px; font-size:12.5px; color:var(--sage); font-family:'IBM Plex Mono',monospace; word-break:break-all;}
-  .assignment-frame-wrap{
-    border:1.5px solid var(--paper-line); border-radius:12px; overflow:hidden; background:#fff;
-  }
-  .assignment-frame-wrap iframe{width:100%; min-height:520px; border:none; display:block;}
 
   .hidden{display:none !important;}
   ::-webkit-scrollbar{width:8px;}
@@ -444,8 +434,9 @@ function renderStudentAssignmentView(assignment){
     <div class="eyebrow">Assignment</div>
     <h1 style="margin-bottom:4px;">${assignment.title}</h1>
     <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Given ${fmtTime(assignment.createdAt)} by ${teacherUser().name}.</p>
-    <div class="assignment-frame-wrap">
-      <iframe sandbox="allow-same-origin" srcdoc="${assignment.html.replace(/"/g,'&quot;')}"></iframe>
+    <div class="card" style="display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
+      <p style="font-size:13.5px; color:var(--ink-soft); margin:0; word-break:break-all;">${assignment.url}</p>
+      <a class="btn-mustard" href="${assignment.url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; display:inline-block;">Open Assignment &#8599;</a>
     </div>
   `;
 }
@@ -594,51 +585,37 @@ function renderTeacherNewAssignment(){
     <button class="back-link" onclick="renderTeacherHome()">&larr; Back to Home</button>
     <div class="eyebrow">New Assignment</div>
     <h1 style="margin-bottom:4px;">Give an Assignment</h1>
-    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Give it a title and upload the assignment as an HTML file. It will appear immediately on every student's home page.</p>
+    <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">Give it a title and a link. It will appear immediately on every student's home page.</p>
     <div class="card" style="max-width:520px;">
-      <div class="login-error" id="assignmentError">Please fill in the title and choose an HTML file.</div>
+      <div class="login-error" id="assignmentError">Please fill in the title and a valid link.</div>
       <div class="field">
         <label for="assignmentTitle">Assignment Title</label>
         <input id="assignmentTitle" type="text" placeholder="e.g. Weekly Grammar Exercise">
       </div>
       <div class="field">
-        <label>Upload Assignment (.html)</label>
-        <div class="upload-drop">
-          <input id="assignmentFile" type="file" accept=".html,text/html">
-          <div class="fname" id="assignmentFileName"></div>
-        </div>
+        <label for="assignmentUrl">Assignment Link</label>
+        <input id="assignmentUrl" type="url" placeholder="https://...">
       </div>
       <button class="btn-mustard" id="publishAssignmentBtn" style="width:100%; margin-top:6px;">Publish to Students</button>
     </div>
   `;
 
-  let uploadedHtml = null;
-  const fileInput = document.getElementById('assignmentFile');
-  const fileNameBox = document.getElementById('assignmentFileName');
-
-  fileInput.addEventListener('change', ()=>{
-    const file = fileInput.files[0];
-    uploadedHtml = null;
-    fileNameBox.textContent = '';
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      uploadedHtml = reader.result;
-      fileNameBox.textContent = 'Selected: ' + file.name;
-    };
-    reader.onerror = ()=>{
-      fileNameBox.textContent = 'Could not read that file. Please try again.';
-    };
-    reader.readAsText(file);
-  });
-
   document.getElementById('publishAssignmentBtn').onclick = async ()=>{
     const errBox = document.getElementById('assignmentError');
     errBox.style.display = 'none';
     const title = document.getElementById('assignmentTitle').value.trim();
+    let url = document.getElementById('assignmentUrl').value.trim();
 
-    if(!title || !uploadedHtml){
-      errBox.textContent = 'Please fill in the title and choose an HTML file.';
+    if(!title || !url){
+      errBox.textContent = 'Please fill in the title and a valid link.';
+      errBox.style.display = 'block';
+      return;
+    }
+    if(!/^https?:\/\//i.test(url)){
+      url = 'https://' + url;
+    }
+    try{ new URL(url); }catch(e){
+      errBox.textContent = 'That link doesn\'t look valid. Please check it and try again.';
       errBox.style.display = 'block';
       return;
     }
@@ -651,7 +628,7 @@ function renderTeacherNewAssignment(){
     list.push({
       id: 'a' + Date.now(),
       title,
-      html: uploadedHtml,
+      url,
       createdAt: Date.now()
     });
     const ok = await saveAssignments(list);
@@ -674,8 +651,9 @@ function renderTeacherAssignmentPreview(assignment){
     <div class="eyebrow">Assignment Preview</div>
     <h1 style="margin-bottom:4px;">${assignment.title}</h1>
     <p style="font-size:13px; color:#8A8F9F; margin-bottom:20px;">This is exactly what students see when they open this assignment.</p>
-    <div class="assignment-frame-wrap">
-      <iframe sandbox="allow-same-origin" srcdoc="${assignment.html.replace(/"/g,'&quot;')}"></iframe>
+    <div class="card" style="display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
+      <p style="font-size:13.5px; color:var(--ink-soft); margin:0; word-break:break-all;">${assignment.url}</p>
+      <a class="btn-mustard" href="${assignment.url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; display:inline-block;">Open Assignment &#8599;</a>
     </div>
   `;
 }
