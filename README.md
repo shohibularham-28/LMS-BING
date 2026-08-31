@@ -953,7 +953,7 @@ const DATA = {
       { siswa: "Aleysia Laura Keisya", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 37.02, predikat: "D" },
       { siswa: "Ana Fitriani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 61.07, predikat: "D" },
       { siswa: "Anisa Mulya Sari", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 72.52, predikat: "C" },
-      { siswa: "Anita Setiani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Anita Setiani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 56, predikat: "D" },
       { siswa: "Aqilla Ardhana Putra", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 79.77, predikat: "C" },
       { siswa: "Arfania Ghaitsa Tosa", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 76.34, predikat: "C" },
       { siswa: "Asyifa Nazwa Zuliananta", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 72.52, predikat: "C" },
@@ -962,9 +962,9 @@ const DATA = {
       { siswa: "Edy Prasetyo", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.76, predikat: "C" },
       { siswa: "Elma Candace Auryn", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 96.18, predikat: "A" },
       { siswa: "Fadhilah Nur Fatin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 74.81, predikat: "C" },
-      { siswa: "Falen Raditya Bayu", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 74.81, predikat: "C" },
+      { siswa: "Falen Raditya Bayu", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 74.00, predikat: "  C" },
       { siswa: "Fida Resy Uzlifah", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 92.37, predikat: "A" },
-      { siswa: "Gandis Septria Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Gandis Septria Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 41, predikat: "D" },
       { siswa: "Ikhsan Azzarudin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 76.34, predikat: "C" },
       { siswa: "Irma Suci Ramadhani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 88.55, predikat: "B" },
       { siswa: "Khansa Adiva Fauzie", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 77.1, predikat: "C" },
@@ -1047,7 +1047,7 @@ const USERS = [
   { username: "ajeng", password: "5048", nama: "Ajeng Alifah Nur Isvina", kelas: "XI D1" },
   { username: "elma", password: "elcenaryn", nama: "Elma Candace Auryn", kelas: "XI D1" },
   { username: "kukuh", password: "5TPGK", nama: "Kukuh Anugrah Wibisono", kelas: "XI D1" },
-  { username: "rifan", password: "Ceall", nama: "Rifan Firziansah", kelas: "XI D1" },
+  { username: "rifan", password: "102526", nama: "Rifan Firziansah", kelas: "XI D1" },
   { username: "dinna", password: "Cipipp", nama: "Dinna Arta Nursyifa", kelas: "XI D1" },
   { username: "arfania", password: "552010", nama: "Arfania Ghaitsa Tosa", kelas: "XI D1" },
   { username: "maharani", password: "rani3", nama: "Maharani Arsita", kelas: "XI D1" },
@@ -1057,14 +1057,15 @@ const USERS = [
   { username: "gandis", password: "55555", nama: "Gandis Septria Putri", kelas: "XI D1" },
   { username: "ikhsan", password: "SAN30", nama: "Ikhsan Azzarudin", kelas: "XI D1" },
   { username: "neiza", password: "neiza25", nama: "Neiza Dinda Kirana", kelas: "XI D1" },
-  { username: "cerrel", password: "cerrel11", nama: "Cerrel Yovanka", kelas: "XI D1" },
+  { username: "cerrel", password: "Ceall", nama: "Cerrel Yovanka", kelas: "XI D1" },
   { username: "edy", password: "edy13", nama: "Edy Prasetyo", kelas: "XI D1" },
   { username: "anisa", password: "anisa", nama: "Anisa Mulya Sari", kelas: "XI D1" },
   { username: "fida", password: "lifa707", nama: "Fida Resy Uzlifah", kelas: "XI D1" },
   { username: "laura", password: "laurakurus11", nama: "Laura Dwi Carrisa", kelas: "XI D1" },
   { username: "nandi", password: "21610", nama: "Nandi Febriansyah", kelas: "XI D1" },
   { username: "tiara", password: "tAr#3", nama: "Tiara Febriyanti", kelas: "XI D1" },
-  { username: "anita", password: "54321", nama: "Anita Setiani", kelas: "XI D1" }
+  { username: "anita", password: "54321", nama: "Anita Setiani", kelas: "XI D1" },
+  { username: "falen", password: "12345", nama: "Falen Raditya Bayu", kelas: "XI D1" }
 ];
 
 let currentUser = null;
