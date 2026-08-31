@@ -196,6 +196,24 @@
     border-color:var(--violet);
     box-shadow:0 0 0 4px var(--violet-soft);
   }
+  .pw-wrap{position:relative;}
+  .pw-wrap input{padding-right:44px;}
+  .pw-toggle{
+    position:absolute;
+    right:6px;
+    top:50%;
+    transform:translateY(-50%);
+    width:32px; height:32px;
+    display:flex; align-items:center; justify-content:center;
+    background:transparent;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    padding:0;
+    transition:background .15s;
+  }
+  .pw-toggle:hover{background:rgba(154,163,184,0.12);}
+  .pw-toggle:focus{outline:none; box-shadow:0 0 0 3px var(--violet-soft);}
   .btn-primary{
     width:100%;
     padding:14px;
@@ -707,7 +725,13 @@
       </div>
       <div class="field">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Masukkan password">
+        <div class="pw-wrap">
+          <input type="password" id="password" placeholder="Masukkan password">
+          <button type="button" class="pw-toggle" id="pwToggle" onclick="togglePassword()" aria-label="Tampilkan password">
+            <svg id="pwIconEye" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" stroke="#9AA3B8" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#9AA3B8" stroke-width="1.6"/></svg>
+            <svg id="pwIconEyeOff" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" style="display:none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" stroke="#9AA3B8" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#9AA3B8" stroke-width="1.6"/><path d="M2 2l20 20" stroke="#9AA3B8" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+        </div>
       </div>
       <div class="field">
         <label for="kelas">Kelas</label>
@@ -1032,6 +1056,9 @@ const USERS = [
   { username: "siswa", password: "p6@Wq", nama: "Nur Rokhmahwati", kelas: "XI D1" },
   { username: "siswa", password: "55555", nama: "Gandis Septria Putri", kelas: "XI D1" },
   { username: "siswa", password: "SAN30", nama: "Ikhsan Azzarudin", kelas: "XI D1" },
+  { username: "siswa", password: "neiza25", nama: "Neiza Dinda Kirana", kelas: "XI D1" },
+  { username: "siswa", password: "cerrel11", nama: "Cerrel Yovanka", kelas: "XI D1" },
+  { username: "siswa", password: "edy13", nama: "Edy Prasetyo", kelas: "XI D1" },
   { username: "siswa", password: "anisa", nama: "Anisa Mulya Sari", kelas: "XI D1" },
   { username: "siswa", password: "lifa707", nama: "Fida Resy Uzlifah", kelas: "XI D1" },
   { username: "siswa", password: "laurakurus11", nama: "Laura Dwi Carrisa", kelas: "XI D1" },
@@ -1044,6 +1071,18 @@ let currentUser = null;
 let currentLevel = null;
 
 function getLevel(kelas){ return kelas.startsWith("XI") ? "XI" : "X"; }
+
+function togglePassword(){
+  const input = document.getElementById('password');
+  const eye = document.getElementById('pwIconEye');
+  const eyeOff = document.getElementById('pwIconEyeOff');
+  const btn = document.getElementById('pwToggle');
+  const showing = input.type === 'text';
+  input.type = showing ? 'password' : 'text';
+  eye.style.display = showing ? '' : 'none';
+  eyeOff.style.display = showing ? 'none' : '';
+  btn.setAttribute('aria-label', showing ? 'Tampilkan password' : 'Sembunyikan password');
+}
 
 function doLogin(){
   const username = document.getElementById('username').value.trim();
