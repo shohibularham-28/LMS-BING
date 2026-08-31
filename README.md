@@ -944,7 +944,8 @@ const DATA = {
   },
   XI: {
     announcements: [
-      { date: "31 Agustus 2026", title: "Pengumuman Nilai Ulangan Harian 1 - Narrative Text Legend", body: "Nilai Ulangan Harian 1 materi Narrative Text (Legend) kelas XI D1 sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan." }
+      { date: "31 Agustus 2026", title: "Pengumuman Nilai Ulangan Harian 1 - Narrative Text Legend", body: "Nilai Ulangan Harian 1 materi Narrative Text (Legend) kelas XI E1 sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "XI E1" },
+      { date: "31 Agustus 2026", title: "Pengumuman Nilai Ulangan Harian 1 - Narrative Text Legend", body: "Nilai Ulangan Harian 1 materi Narrative Text (Legend) kelas XI D1 sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "XI D1" }
     ],
     grades: [
       { siswa: "Adinda Salsa Binta Safira", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 84.73, predikat: "B" },
@@ -982,7 +983,43 @@ const DATA = {
       { siswa: "Septiana Andini Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 72.9, predikat: "C" },
       { siswa: "Tiara Febriyanti", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 87.02, predikat: "B" },
       { siswa: "Wiwit Setya Ningrum", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 84.35, predikat: "B" },
-      { siswa: "Yohana Cristi Agustin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.76, predikat: "C" }
+      { siswa: "Yohana Cristi Agustin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.76, predikat: "C" },
+      { siswa: "Adelia Sulviana Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 53.59, predikat: "D" },
+      { siswa: "Afnan Ulil Azhar", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 56.15, predikat: "D" },
+      { siswa: "Alifia Friska Azhari", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 58.72, predikat: "D" },
+      { siswa: "Andika Permana", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.54, predikat: "C" },
+      { siswa: "Anggi Nur Safina", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.54, predikat: "C" },
+      { siswa: "Anna Altha Funnisa", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Assyifa'u Zahra", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 99.74, predikat: "A" },
+      { siswa: "Cahya Wahyuningtiyas", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 53.59, predikat: "D" },
+      { siswa: "Citra Assifa Nur Aini", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 66.41, predikat: "D" },
+      { siswa: "Desi Triani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 74.1, predikat: "C" },
+      { siswa: "Diana Febriana", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 74.1, predikat: "C" },
+      { siswa: "Dina Amelia", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 66.41, predikat: "D" },
+      { siswa: "Elza Irzyabia Fibrina", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 56.15, predikat: "D" },
+      { siswa: "Faiq Ramadani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 76.67, predikat: "C" },
+      { siswa: "Fikri Gunawan", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 100, predikat: "A" },
+      { siswa: "Julia Nur Safitri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 61.28, predikat: "D" },
+      { siswa: "Khairunisa Safa Dwiyanjari", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 94.62, predikat: "A" },
+      { siswa: "Lusiana Solekhatun Mu'minah", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 45.9, predikat: "D" },
+      { siswa: "Mega Silviana Bella", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 66.41, predikat: "D" },
+      { siswa: "Melisa Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 63.85, predikat: "D" },
+      { siswa: "Mussyarofatul Kirom", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 68.97, predikat: "D" },
+      { siswa: "Nadira Riana Wahyunita", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 100, predikat: "A" },
+      { siswa: "Naisya Dwi Andina", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 61.28, predikat: "D" },
+      { siswa: "Nanda Febriansyah", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.54, predikat: "C" },
+      { siswa: "Niken Ayu Setyaningrum", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 76.67, predikat: "C" },
+      { siswa: "Novita Dwi Anggraeni", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 61.28, predikat: "D" },
+      { siswa: "Putri Diana", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 66.41, predikat: "D" },
+      { siswa: "Qianu Almalik Fathir", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 79.23, predikat: "C" },
+      { siswa: "Regita Abelia Larasati", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 86.92, predikat: "B" },
+      { siswa: "Rezky Andika Seno Pratama", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 81.79, predikat: "B" },
+      { siswa: "Rifda Karima Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 53.59, predikat: "D" },
+      { siswa: "Shaleha Alya Fitriani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 53.59, predikat: "D" },
+      { siswa: "Shinta Herni Zalianti", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 61.28, predikat: "D" },
+      { siswa: "Syela Ramadhani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.54, predikat: "C" },
+      { siswa: "Vitaliya Yuniar Ibrahim", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 94.62, predikat: "A" },
+      { siswa: "Wahyu Setiyadi", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 81.79, predikat: "B" }
     ],
     materi: [
       { tag: "Grammar", title: "16 Tenses — The Time Rail", desc: "Materi interaktif lengkap 16 tenses bahasa Inggris: present, past, dan future beserta rumus dan contoh.", embed: "tenses" }
@@ -1259,7 +1296,8 @@ function renderContent(level){
   // Pengumuman
   const annC = document.getElementById('ann-container');
   const remedialAnn = getRemedialAnnouncement(currentUser);
-  const announcementsToShow = remedialAnn ? [remedialAnn, ...d.announcements] : d.announcements;
+  const kelasAnnouncements = d.announcements.filter(a => !a.kelas || (currentUser && a.kelas === currentUser.kelas));
+  const announcementsToShow = remedialAnn ? [remedialAnn, ...kelasAnnouncements] : kelasAnnouncements;
   annC.innerHTML = announcementsToShow.length ? announcementsToShow.map(a => `
     <div class="ann-card">
       <div class="ann-date">${a.date}</div>
