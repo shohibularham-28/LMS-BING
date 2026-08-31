@@ -1065,13 +1065,90 @@ const USERS = [
   { username: "nandi", password: "21610", nama: "Nandi Febriansyah", kelas: "XI D1" },
   { username: "tiara", password: "tAr#3", nama: "Tiara Febriyanti", kelas: "XI D1" },
   { username: "anita", password: "54321", nama: "Anita Setiani", kelas: "XI D1" },
-  { username: "falen", password: "12345", nama: "Falen Raditya Bayu", kelas: "XI D1" }
+  { username: "falen", password: "12345", nama: "Falen Raditya Bayu", kelas: "XI D1" },
+  { username: "adelia", password: "30mei2010", nama: "Adelia Sulviana Putri", kelas: "XI E1" },
+  { username: "afnan", password: "afnan2", nama: "Afnan Ulil Azhar", kelas: "XI E1" },
+  { username: "alifia", password: "080725", nama: "Alifia Friska Azhari", kelas: "XI E1" },
+  { username: "andika", password: "dikaganteng", nama: "Andika Permana", kelas: "XI E1" },
+  { username: "anggi", password: "kaelen", nama: "Anggi Nur Safina", kelas: "XI E1" },
+  { username: "anna", password: "PRETTY", nama: "Anna Altha Funnisa", kelas: "XI E1" },
+  { username: "assyifau", password: "fa259", nama: "Assyifa'u Zahra", kelas: "XI E1" },
+  { username: "cahya", password: "080310", nama: "Cahya Wahyuningtiyas", kelas: "XI E1" },
+  { username: "citra", password: "Citra_13@", nama: "Citra Assifa Nur Aini", kelas: "XI E1" },
+  { username: "desi", password: "DESI1", nama: "Desi Triani", kelas: "XI E1" },
+  { username: "diana", password: "30326", nama: "Diana Febriana", kelas: "XI E1" },
+  { username: "dina", password: "DI_M314", nama: "Dina Amelia", kelas: "XI E1" },
+  { username: "elza", password: "678+#", nama: "Elza Irzyabia Fibrina", kelas: "XI E1" },
+  { username: "faiq", password: "Faiq@", nama: "Faiq Ramadani", kelas: "XI E1" },
+  { username: "fikri", password: "Fikri 12345678", nama: "Fikri Gunawan", kelas: "XI E1" },
+  { username: "julia", password: "BangtanseokjinV", nama: "Julia Nur Safitri", kelas: "XI E1" },
+  { username: "khairunisa", password: "safa22", nama: "Khairunisa Safa Dwiyanjari", kelas: "XI E1" },
+  { username: "lusiana", password: "Lusi123", nama: "Lusiana Solekhatun Mu'minah", kelas: "XI E1" },
+  { username: "mega", password: "BELLA4", nama: "Mega Silviana Bella", kelas: "XI E1" },
+  { username: "melisa", password: "2872010", nama: "Melisa Putri", kelas: "XI E1" },
+  { username: "mussyarofatul", password: "KIKI4", nama: "Mussyarofatul Kirom", kelas: "XI E1" },
+  { username: "nadira", password: "HMOKE", nama: "Nadira Riana Wahyunita", kelas: "XI E1" },
+  { username: "naisya", password: "12345", nama: "Naisya Dwi Andina", kelas: "XI E1" },
+  { username: "nanda", password: "16iyan0210", nama: "Nanda Febriansyah", kelas: "XI E1" },
+  { username: "niken", password: "nkn17", nama: "Niken Ayu Setyaningrum", kelas: "XI E1" },
+  { username: "novita", password: "linyi123", nama: "Novita Dwi Anggraeni", kelas: "XI E1" },
+  { username: "putri", password: "nanwy", nama: "Putri Diana", kelas: "XI E1" },
+  { username: "qianu", password: "qianu28", nama: "Qianu Almalik Fathir", kelas: "XI E1" },
+  { username: "regita", password: "220610", nama: "Regita Abelia Larasati", kelas: "XI E1" },
+  { username: "rezky", password: "R3zky", nama: "Rezky Andika Seno Pratama", kelas: "XI E1" },
+  { username: "rifda", password: "RIFDADANI18", nama: "Rifda Karima Putri", kelas: "XI E1" },
+  { username: "shaleha", password: "shly29", nama: "Shaleha Alya Fitriani", kelas: "XI E1" },
+  { username: "shinta", password: "shinta1100", nama: "Shinta Herni Zalianti", kelas: "XI E1" },
+  { username: "syela", password: "31810", nama: "Syela Ramadhani", kelas: "XI E1" },
+  { username: "vitaliya", password: "VITTA", nama: "Vitaliya Yuniar Ibrahim", kelas: "XI E1" },
+  { username: "wahyu", password: "Martabakcoklat", nama: "Wahyu Setiyadi", kelas: "XI E1" },
+  { username: "fanesia", password: "FAN3S", nama: "Fanesia Hayuning Tiyas", kelas: "XI D2" },
+  { username: "roidatul", password: "MOEFL", nama: "Roidatul Muflikhah", kelas: "XI D2" },
+  { username: "fajri", password: "04071", nama: "Fajri Nurqhafid", kelas: "XI D2" },
+  { username: "ainina", password: "21218", nama: "Ainina Zulfa Razzaqu", kelas: "XI D2" },
+  { username: "rafi", password: "RAFI3", nama: "Rafi Ardiansyah Putra", kelas: "XI D2" },
+  { username: "zadit", password: "TAQWIN123", nama: "Zadit Taqwa", kelas: "XI D2" },
+  { username: "lulu", password: "LT236", nama: "Lu'lu Tazqiya", kelas: "XI D2" },
+  { username: "alkhila", password: "Trulala123", nama: "Alkhila Lintang Alini", kelas: "XI D2" },
+  { username: "renaya", password: "renaya_alzena1519", nama: "Renaya Alzena Zhafira", kelas: "XI D2" },
+  { username: "anggraini", password: "040506", nama: "Anggraini Sandacholifia Putri", kelas: "XI D2" },
+  { username: "faradilla", password: "271209", nama: "Faradilla Syafa Aurora", kelas: "XI D2" },
+  { username: "antika", password: "tikaa", nama: "Antika Sari Devi", kelas: "XI D2" },
+  { username: "rizka", password: "R2210", nama: "Rizka Indah Hermawati", kelas: "XI D2" },
+  { username: "syahwa", password: "19910", nama: "Syahwa Septiana Putri", kelas: "XI D2" },
+  { username: "fadilah", password: "50709", nama: "Fadilah Dwi Andini", kelas: "XI D2" },
+  { username: "dewi", password: "Dewi1234", nama: "Dewi Masrurotul A'yuni", kelas: "XI D2" },
+  { username: "gendhis", password: "7UTF1", nama: "Gendhis Nurul Syafiqa", kelas: "XI D2" },
+  { username: "fransiska", password: "Sil_Va", nama: "Fransiska Silva Nabila", kelas: "XI D2" },
+  { username: "ariqah", password: "RIYAN", nama: "Ariqah Latifah Riyanti", kelas: "XI D2" },
+  { username: "azam", password: "Azam15", nama: "Azam Wiki Adillah Aqib", kelas: "XI D2" },
+  { username: "nova", password: "Nova4", nama: "Nova Fatikhatun Nisa", kelas: "XI D2" },
+  { username: "triyana", password: "Tri12", nama: "Triyana Wulan Sari", kelas: "XI D2" },
+  { username: "eka", password: "@Vian01", nama: "Eka Vitroh Octaviana Putri", kelas: "XI D2" }
 ];
 
 let currentUser = null;
 let currentLevel = null;
 
 function getLevel(kelas){ return kelas.startsWith("XI") ? "XI" : "X"; }
+
+const REMEDIAL_KELAS = ["XI D1", "XI D2", "XI E1"];
+const REMEDIAL_LINK = "https://shohibularham-28.github.io/LMS-READING/";
+
+function getRemedialAnnouncement(account){
+  if(!account || !REMEDIAL_KELAS.includes(account.kelas)) return null;
+  const level = getLevel(account.kelas);
+  const d = DATA[level];
+  if(!d) return null;
+  const nilai = d.grades.find(g => g.siswa === account.nama);
+  if(!nilai || typeof nilai.skor !== 'number' || nilai.skor >= 75) return null;
+
+  return {
+    date: new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }),
+    title: "Remedial " + nilai.jenis,
+    body: `Kamu belum mencapai nilai KKM pada <strong>${nilai.jenis}</strong> (skor: ${nilai.skor}). Silakan kerjakan remedial melalui link berikut: <a href="${REMEDIAL_LINK}" target="_blank" rel="noopener">${REMEDIAL_LINK}</a>`
+  };
+}
 
 function togglePassword(){
   const input = document.getElementById('password');
@@ -1181,7 +1258,9 @@ function renderContent(level){
 
   // Pengumuman
   const annC = document.getElementById('ann-container');
-  annC.innerHTML = d.announcements.length ? d.announcements.map(a => `
+  const remedialAnn = getRemedialAnnouncement(currentUser);
+  const announcementsToShow = remedialAnn ? [remedialAnn, ...d.announcements] : d.announcements;
+  annC.innerHTML = announcementsToShow.length ? announcementsToShow.map(a => `
     <div class="ann-card">
       <div class="ann-date">${a.date}</div>
       <h3>${a.title}</h3>
