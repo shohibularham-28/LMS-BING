@@ -540,6 +540,9 @@
   }
   .score-high{background:rgba(198,241,53,0.25); color:#5A7500;}
   .score-mid{background:rgba(76,201,240,0.15); color:#0E7EA8;}
+  .status-tuntas{background:rgba(198,241,53,0.25); color:#5A7500;}
+  .status-remidi{background:rgba(255,107,94,0.16); color:#C6473A;}
+  .status-belum{background:rgba(93,100,120,0.14); color:#5D6478;}
 
   /* Materi */
   .materi-grid{
@@ -779,7 +782,7 @@
           <div class="section-label">Rekap Nilai Terbaru</div>
           <table class="grade-table" id="grade-table">
             <thead>
-              <tr><th>Jenis Penilaian</th><th>Skor</th><th>Predikat</th></tr>
+              <tr><th>Jenis Penilaian</th><th>Skor</th><th>Predikat</th><th>Status</th></tr>
             </thead>
             <tbody id="grade-container"></tbody>
           </table>
@@ -916,8 +919,47 @@ const DATA = {
     worksheets: []
   },
   XI: {
-    announcements: [],
-    grades: [],
+    announcements: [
+      { date: "31 Agustus 2026", title: "Pengumuman Nilai Ulangan Harian 1 - Narrative Text Legend", body: "Nilai Ulangan Harian 1 materi Narrative Text (Legend) kelas XI D1 sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan." }
+    ],
+    grades: [
+      { siswa: "Adinda Salsa Binta Safira", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 84.73, predikat: "B" },
+      { siswa: "Afrilia Dwi Lestari", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 73.28, predikat: "C" },
+      { siswa: "Ajeng Alifah Nur Isvina", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 79.39, predikat: "C" },
+      { siswa: "Aleysia Laura Keisya", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 37.02, predikat: "D" },
+      { siswa: "Ana Fitriani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 61.07, predikat: "D" },
+      { siswa: "Anisa Mulya Sari", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 72.52, predikat: "C" },
+      { siswa: "Anita Setiani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Aqilla Ardhana Putra", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 79.77, predikat: "C" },
+      { siswa: "Arfania Ghaitsa Tosa", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 76.34, predikat: "C" },
+      { siswa: "Asyifa Nazwa Zuliananta", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 72.52, predikat: "C" },
+      { siswa: "Cerrel Yovanka", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 57.25, predikat: "D" },
+      { siswa: "Dinna Arta Nursyifa", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 52.67, predikat: "D" },
+      { siswa: "Edy Prasetyo", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.76, predikat: "C" },
+      { siswa: "Elma Candace Auryn", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 96.18, predikat: "A" },
+      { siswa: "Fadhilah Nur Fatin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 74.81, predikat: "C" },
+      { siswa: "Falen Raditya Bayu", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 74.81, predikat: "C" },
+      { siswa: "Fida Resy Uzlifah", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 92.37, predikat: "A" },
+      { siswa: "Gandis Septria Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Ikhsan Azzarudin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 76.34, predikat: "C" },
+      { siswa: "Irma Suci Ramadhani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 88.55, predikat: "B" },
+      { siswa: "Khansa Adiva Fauzie", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 77.1, predikat: "C" },
+      { siswa: "Kukuh Anugrah Wibisono", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 83.59, predikat: "B" },
+      { siswa: "Laura Dwi Carrisa", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 96.18, predikat: "A" },
+      { siswa: "Maharani Arsita", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 84.35, predikat: "B" },
+      { siswa: "Nabila Nur Khanifa", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 67.56, predikat: "D" },
+      { siswa: "Nandi Febriansyah", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 67.94, predikat: "D" },
+      { siswa: "Neiza Dinda Kirana", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 87.02, predikat: "B" },
+      { siswa: "Nur Rokhmahwati", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 96.18, predikat: "A" },
+      { siswa: "Revina Candra Oktaviana", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 80.15, predikat: "B" },
+      { siswa: "Rifan Firziansah", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 75.19, predikat: "C" },
+      { siswa: "Rizki Anailiyin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 79.39, predikat: "C" },
+      { siswa: "Roisyah Mugi Subekti", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 64.12, predikat: "D" },
+      { siswa: "Septiana Andini Putri", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 72.9, predikat: "C" },
+      { siswa: "Tiara Febriyanti", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 87.02, predikat: "B" },
+      { siswa: "Wiwit Setya Ningrum", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 84.35, predikat: "B" },
+      { siswa: "Yohana Cristi Agustin", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.76, predikat: "C" }
+    ],
     materi: [
       { tag: "Grammar", title: "16 Tenses — The Time Rail", desc: "Materi interaktif lengkap 16 tenses bahasa Inggris: present, past, dan future beserta rumus dan contoh.", embed: "tenses" }
     ],
@@ -962,7 +1004,40 @@ const USERS = [
   { username: "siswa", password: "manzz_07i", nama: "Iman Nugraha Nur Saputra", kelas: "X I" },
   { username: "siswa", password: "300910", nama: "Amanatun Ni'mah", kelas: "X I" },
   { username: "siswa", password: "N92011", nama: "Nisa Uswatun Khasanah", kelas: "X I" },
-  { username: "siswa", password: "nirinaputriramadhani8811", nama: "Nirina Putri Ramadhani", kelas: "X I" }
+  { username: "siswa", password: "nirinaputriramadhani8811", nama: "Nirina Putri Ramadhani", kelas: "X I" },
+  { username: "siswa", password: "Yudha1112", nama: "Fatih Sidiq Panglima Yudha", kelas: "X I" },
+  { username: "siswa", password: "Roy140130scout", nama: "Roisyah Mugi Subekti", kelas: "XI D1" },
+  { username: "siswa", password: "DIVAA", nama: "Khansa Adiva Fauzie", kelas: "XI D1" },
+  { username: "siswa", password: "158905", nama: "Revina Candra Oktaviana", kelas: "XI D1" },
+  { username: "siswa", password: "Nabila", nama: "Nabila Nur Khanifa", kelas: "XI D1" },
+  { username: "siswa", password: "ALKEI", nama: "Aleysia Laura Keisya", kelas: "XI D1" },
+  { username: "siswa", password: "ana09", nama: "Ana Fitriani", kelas: "XI D1" },
+  { username: "siswa", password: "lyn37", nama: "Rizki Anailiyin", kelas: "XI D1" },
+  { username: "siswa", password: "9113", nama: "Wiwit Setya Ningrum", kelas: "XI D1" },
+  { username: "siswa", password: "yhna8", nama: "Yohana Cristi Agustin", kelas: "XI D1" },
+  { username: "siswa", password: "DNDAA12", nama: "Adinda Salsa Binta Safira", kelas: "XI D1" },
+  { username: "siswa", password: "asyifa", nama: "Asyifa Nazwa Zuliananta", kelas: "XI D1" },
+  { username: "siswa", password: "12345", nama: "Aqilla Ardhana Putra", kelas: "XI D1" },
+  { username: "siswa", password: "D1L4 CanT1k", nama: "Fadhilah Nur Fatin", kelas: "XI D1" },
+  { username: "siswa", password: "IRMACANTIK", nama: "Irma Suci Ramadhani", kelas: "XI D1" },
+  { username: "siswa", password: "5048", nama: "Ajeng Alifah Nur Isvina", kelas: "XI D1" },
+  { username: "siswa", password: "elcenaryn", nama: "Elma Candace Auryn", kelas: "XI D1" },
+  { username: "siswa", password: "5TPGK", nama: "Kukuh Anugrah Wibisono", kelas: "XI D1" },
+  { username: "siswa", password: "Ceall", nama: "Rifan Firziansah", kelas: "XI D1" },
+  { username: "siswa", password: "Cipipp", nama: "Dinna Arta Nursyifa", kelas: "XI D1" },
+  { username: "siswa", password: "552010", nama: "Arfania Ghaitsa Tosa", kelas: "XI D1" },
+  { username: "siswa", password: "rani3", nama: "Maharani Arsita", kelas: "XI D1" },
+  { username: "siswa", password: "12345", nama: "Afrilia Dwi Lestari", kelas: "XI D1" },
+  { username: "siswa", password: "Andin", nama: "Septiana Andini Putri", kelas: "XI D1" },
+  { username: "siswa", password: "p6@Wq", nama: "Nur Rokhmahwati", kelas: "XI D1" },
+  { username: "siswa", password: "55555", nama: "Gandis Septria Putri", kelas: "XI D1" },
+  { username: "siswa", password: "SAN30", nama: "Ikhsan Azzarudin", kelas: "XI D1" },
+  { username: "siswa", password: "anisa", nama: "Anisa Mulya Sari", kelas: "XI D1" },
+  { username: "siswa", password: "lifa707", nama: "Fida Resy Uzlifah", kelas: "XI D1" },
+  { username: "siswa", password: "laurakurus11", nama: "Laura Dwi Carrisa", kelas: "XI D1" },
+  { username: "siswa", password: "21610", nama: "Nandi Febriansyah", kelas: "XI D1" },
+  { username: "siswa", password: "tAr#3", nama: "Tiara Febriyanti", kelas: "XI D1" },
+  { username: "siswa", password: "54321", nama: "Anita Setiani", kelas: "XI D1" }
 ];
 
 let currentUser = null;
@@ -1082,13 +1157,19 @@ function renderContent(level){
   if(myGrades.length){
     gradeTable.style.display = '';
     gradeEmptySlot.innerHTML = '';
-    gradeC.innerHTML = myGrades.map(g => `
+    gradeC.innerHTML = myGrades.map(g => {
+      const isNumeric = typeof g.skor === 'number';
+      const statusCls = !isNumeric ? 'status-belum' : (g.skor < 75 ? 'status-remidi' : 'status-tuntas');
+      const statusTxt = !isNumeric ? 'Belum Mengerjakan' : (g.skor < 75 ? 'Remidi' : 'Tuntas');
+      return `
       <tr>
         <td>${g.jenis}</td>
         <td>${g.skor}</td>
-        <td><span class="score-pill ${g.skor >= 85 ? 'score-high' : 'score-mid'}">${g.predikat}</span></td>
+        <td><span class="score-pill ${isNumeric && g.skor >= 85 ? 'score-high' : 'score-mid'}">${g.predikat}</span></td>
+        <td><span class="score-pill ${statusCls}">${statusTxt}</span></td>
       </tr>
-    `).join('');
+    `;
+    }).join('');
   } else {    gradeTable.style.display = 'none';
     gradeC.innerHTML = '';
     gradeEmptySlot.innerHTML = emptyState("Belum ada nilai", "Nilai yang sudah dinilai guru akan tampil di sini.", "📊");
