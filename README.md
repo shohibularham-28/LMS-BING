@@ -984,9 +984,7 @@ const DATA = {
     announcements: [
       { date: "31 Agustus 2026", title: "Pengumuman Nilai Ulangan Harian 1 - Narrative Text Legend", body: "Nilai Ulangan Harian 1 materi Narrative Text (Legend) kelas XI E1 sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "XI E1" },
       { date: "31 Agustus 2026", title: "Pengumuman Nilai Ulangan Harian 1 - Narrative Text Legend", body: "Nilai Ulangan Harian 1 materi Narrative Text (Legend) kelas XI D1 sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "XI D1" },
-      { date: "1 September 2026", title: "Pengumuman Remedial", body: "Bagi peserta didik kelas XI D1 yang belum mencapai nilai KKM, silakan segera mengerjakan remedial melalui link berikut: <a href=\"https://shohibularham-28.github.io/LMS-READING/\" target=\"_blank\" rel=\"noopener\">https://shohibularham-28.github.io/LMS-READING/</a>. Token remedial: <strong>remed</strong>", kelas: "XI D1" },
-      { date: "1 September 2026", title: "Pengumuman Remedial", body: "Bagi peserta didik kelas XI D2 yang belum mencapai nilai KKM, silakan segera mengerjakan remedial melalui link berikut: <a href=\"https://shohibularham-28.github.io/LMS-READING/\" target=\"_blank\" rel=\"noopener\">https://shohibularham-28.github.io/LMS-READING/</a>. Token remedial: <strong>remed</strong>", kelas: "XI D2" },
-      { date: "1 September 2026", title: "Pengumuman Remedial", body: "Bagi peserta didik kelas XI E1 yang belum mencapai nilai KKM, silakan segera mengerjakan remedial melalui link berikut: <a href=\"https://shohibularham-28.github.io/LMS-READING/\" target=\"_blank\" rel=\"noopener\">https://shohibularham-28.github.io/LMS-READING/</a>. Token remedial: <strong>remed</strong>", kelas: "XI E1" }
+      { date: "2 September 2026", title: "Pengumuman Nilai Ulangan Harian 1", body: "Nilai Ulangan Harian 1 kelas XI D2 sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "XI D2" }
     ],
     grades: [
       { siswa: "Adinda Salsa Binta Safira", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 84.73, predikat: "B" },
@@ -1060,7 +1058,42 @@ const DATA = {
       { siswa: "Shinta Herni Zalianti", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 61.28, predikat: "D" },
       { siswa: "Syela Ramadhani", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 71.54, predikat: "C" },
       { siswa: "Vitaliya Yuniar Ibrahim", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 94.62, predikat: "A" },
-      { siswa: "Wahyu Setiyadi", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 81.79, predikat: "B" }
+      { siswa: "Wahyu Setiyadi", jenis: "Ulangan Harian 1 - Narrative Text Legend", skor: 81.79, predikat: "B" },
+      { siswa: "Adzkiya Ika Luthfiyana", jenis: "Ulangan Harian 1", skor: 48.72, predikat: "D" },
+      { siswa: "Ainina Zulfa Razzaqu", jenis: "Ulangan Harian 1", skor: 89.74, predikat: "B" },
+      { siswa: "Ajizah Nur Malita", jenis: "Ulangan Harian 1", skor: 69.23, predikat: "D" },
+      { siswa: "Alkhila Lintang Alini", jenis: "Ulangan Harian 1", skor: 53.85, predikat: "D" },
+      { siswa: "Anggraini Sandacholifia Putri", jenis: "Ulangan Harian 1", skor: 66.67, predikat: "D" },
+      { siswa: "Anita Aufa Nabil", jenis: "Ulangan Harian 1", skor: 69.23, predikat: "D" },
+      { siswa: "Antika Sari Devi", jenis: "Ulangan Harian 1", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Ariqah Latifah Riyanti", jenis: "Ulangan Harian 1", skor: 92.31, predikat: "A" },
+      { siswa: "Aulia Zahra", jenis: "Ulangan Harian 1", skor: 76.92, predikat: "C" },
+      { siswa: "Azam Wiki Adillah Aqib", jenis: "Ulangan Harian 1", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Dewi Masrurotul A'yuni", jenis: "Ulangan Harian 1", skor: 79.49, predikat: "C" },
+      { siswa: "Eka Vitroh Octaviana Putri", jenis: "Ulangan Harian 1", skor: 79.49, predikat: "C" },
+      { siswa: "Erna Kurniasih", jenis: "Ulangan Harian 1", skor: 79.49, predikat: "C" },
+      { siswa: "Fadilah Dwi Andini", jenis: "Ulangan Harian 1", skor: 89.74, predikat: "B" },
+      { siswa: "Fajri Nurqhafid", jenis: "Ulangan Harian 1", skor: 79.49, predikat: "C" },
+      { siswa: "Fanesia Hayuning Tiyas", jenis: "Ulangan Harian 1", skor: 41.03, predikat: "D" },
+      { siswa: "Faradilla Syafa Aurora", jenis: "Ulangan Harian 1", skor: 71.79, predikat: "C" },
+      { siswa: "Farah Asy Syifa", jenis: "Ulangan Harian 1", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Fransiska Silva Nabila", jenis: "Ulangan Harian 1", skor: 76.92, predikat: "C" },
+      { siswa: "Gendhis Nurul Syafiqa", jenis: "Ulangan Harian 1", skor: 69.23, predikat: "D" },
+      { siswa: "Juneti Amriana", jenis: "Ulangan Harian 1", skor: 69.23, predikat: "D" },
+      { siswa: "Laelatul Qomariyah", jenis: "Ulangan Harian 1", skor: 74.36, predikat: "C" },
+      { siswa: "Lu'lu Tazqiya", jenis: "Ulangan Harian 1", skor: 58.97, predikat: "D" },
+      { siswa: "Melina Sa'adah", jenis: "Ulangan Harian 1", skor: 71.79, predikat: "C" },
+      { siswa: "Nabila Nur Zahra", jenis: "Ulangan Harian 1", skor: 28.21, predikat: "D" },
+      { siswa: "Nova Fatikhatun Nisa", jenis: "Ulangan Harian 1", skor: 38.46, predikat: "D" },
+      { siswa: "Rafi Ardiansyah Putra", jenis: "Ulangan Harian 1", skor: 53.85, predikat: "D" },
+      { siswa: "Renaya Alzena Zhafira", jenis: "Ulangan Harian 1", skor: 43.59, predikat: "D" },
+      { siswa: "Rizka Indah Hermawati", jenis: "Ulangan Harian 1", skor: 56.41, predikat: "D" },
+      { siswa: "Roidatul Muflikhah", jenis: "Ulangan Harian 1", skor: 48.72, predikat: "D" },
+      { siswa: "Salsabilla Dinda Setianingtyas", jenis: "Ulangan Harian 1", skor: 79.49, predikat: "C" },
+      { siswa: "Syahwa Septiana Putri", jenis: "Ulangan Harian 1", skor: 79.49, predikat: "C" },
+      { siswa: "Triyana Wulan Sari", jenis: "Ulangan Harian 1", skor: 51.28, predikat: "D" },
+      { siswa: "Yonareta Zahra Moendita", jenis: "Ulangan Harian 1", skor: 61.54, predikat: "D" },
+      { siswa: "Zadit Taqwa", jenis: "Ulangan Harian 1", skor: 46.15, predikat: "D" },
     ],
     materi: [
       { tag: "Grammar", title: "16 Tenses — The Time Rail", desc: "Materi interaktif lengkap 16 tenses bahasa Inggris: present, past, dan future beserta rumus dan contoh.", embed: "tenses" }
@@ -1203,6 +1236,18 @@ const USERS = [
   { username: "nova", password: "Nova4", nama: "Nova Fatikhatun Nisa", kelas: "XI D2" },
   { username: "triyana", password: "Tri12", nama: "Triyana Wulan Sari", kelas: "XI D2" },
   { username: "eka", password: "@Vian01", nama: "Eka Vitroh Octaviana Putri", kelas: "XI D2" },
+  { username: "adzkiya", password: "10235", nama: "Adzkiya Ika Luthfiyana", kelas: "XI D2" },
+  { username: "ajizah", password: "ajizah3", nama: "Ajizah Nur Malita", kelas: "XI D2" },
+  { username: "anita", password: "ANITA472010", nama: "Anita Aufa Nabil", kelas: "XI D2" },
+  { username: "aulia", password: "aulia9", nama: "Aulia Zahra", kelas: "XI D2" },
+  { username: "erna", password: "molly", nama: "Erna Kurniasih", kelas: "XI D2" },
+  { username: "farah", password: "farah18", nama: "Farah Asy Syifa", kelas: "XI D2" },
+  { username: "juneti", password: "juneti22", nama: "Juneti Amriana", kelas: "XI D2" },
+  { username: "laelatul", password: "Elaaa", nama: "Laelatul Qomariyah", kelas: "XI D2" },
+  { username: "melina", password: "manusiapintar_aamiin", nama: "Melina Sa'adah", kelas: "XI D2" },
+  { username: "nabila", password: "nabila25", nama: "Nabila Nur Zahra", kelas: "XI D2" },
+  { username: "salsabilla", password: "salsabilla11", nama: "Salsabilla Dinda Setianingtyas", kelas: "XI D2" },
+  { username: "yonareta", password: "ret27", nama: "Yonareta Zahra Moendita", kelas: "XI D2" },
   { username: "fianalucugemoibaik", password: "fianalucu0902", nama: "Alifiana Sutan Syahputri", kelas: "X K" },
   { username: "mandarizkyzakya", password: "mandazakya", nama: "Amanda Rizky Zakya", kelas: "X K" },
   { username: "syifaa", password: "2012101", nama: "As Syifa Purba Lestari", kelas: "X K" },
@@ -1259,7 +1304,7 @@ function getRemedialAnnouncement(account){
   return {
     date: new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' }),
     title: "Remedial " + nilai.jenis,
-    body: `Kamu belum mencapai nilai KKM pada <strong>${nilai.jenis}</strong> (skor: ${nilai.skor}). Silakan kerjakan remedial melalui link berikut: <a href="${REMEDIAL_LINK}" target="_blank" rel="noopener">${REMEDIAL_LINK}</a>`
+    body: `Kamu belum mencapai nilai KKM pada <strong>${nilai.jenis}</strong> (skor: ${nilai.skor}). Silakan kerjakan remedial melalui link berikut: <a href="${REMEDIAL_LINK}" target="_blank" rel="noopener">${REMEDIAL_LINK}</a>. Token remedial: <strong>remed</strong>`
   };
 }
 
