@@ -1336,7 +1336,7 @@ function renderContent(level){
   // Pengumuman
   const annC = document.getElementById('ann-container');
   const remedialAnn = getRemedialAnnouncement(currentUser);
-  const kelasAnnouncements = d.announcements.filter(a => !a.kelas || (currentUser && a.kelas === currentUser.kelas));
+  const kelasAnnouncements = d.announcements.filter(a => !a.kelas || (currentUser && a.kelas === currentUser.kelas)).slice().reverse();
   const announcementsToShow = remedialAnn ? [remedialAnn, ...kelasAnnouncements] : kelasAnnouncements;
   annC.innerHTML = announcementsToShow.length ? announcementsToShow.map(a => `
     <div class="ann-card">
