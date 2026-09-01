@@ -806,7 +806,7 @@
           <div class="section-label">Rekap Nilai Terbaru</div>
           <table class="grade-table" id="grade-table">
             <thead>
-              <tr><th>Jenis Penilaian</th><th>Skor</th><th>Predikat</th><th>Status</th></tr>
+              <tr><th>Jenis Penilaian</th><th>Skor</th><th>Nilai Asli (Sebelum Penalti)</th><th>Predikat</th><th>Status</th></tr>
             </thead>
             <tbody id="grade-container"></tbody>
           </table>
@@ -897,7 +897,8 @@ document.addEventListener('keydown', e => {
 const DATA = {
   X: {
     announcements: [
-      { date: "31 Agustus 2026", title: "Pengumuman Nilai Latihan Ulangan Harian 1", body: "Nilai Latihan Ulangan Harian 1 kelas X I sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "X I" }
+      { date: "31 Agustus 2026", title: "Pengumuman Nilai Latihan Ulangan Harian 1", body: "Nilai Latihan Ulangan Harian 1 kelas X I sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "X I" },
+      { date: "1 September 2026", title: "Pengumuman Nilai Latihan Ulangan Harian — Describing People", body: "Nilai Latihan Ulangan Harian materi Describing People kelas X K sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "X K" }
     ],
     grades: [
       { siswa: "Allfin Indrawarman", jenis: "Latihan Ulangan Harian 1", skor: 80, predikat: "B" },
@@ -935,7 +936,42 @@ const DATA = {
       { siswa: "Safi Adiatha", jenis: "Latihan Ulangan Harian 1", skor: "Belum Mengerjakan", predikat: "-" },
       { siswa: "Salsahbila Cahya Utami", jenis: "Latihan Ulangan Harian 1", skor: 98, predikat: "A" },
       { siswa: "Wahidah Nur Rohmah", jenis: "Latihan Ulangan Harian 1", skor: 57, predikat: "D" },
-      { siswa: "Zulfa Maula", jenis: "Latihan Ulangan Harian 1", skor: 70, predikat: "C" }
+      { siswa: "Zulfa Maula", jenis: "Latihan Ulangan Harian 1", skor: 70, predikat: "C" },
+      { siswa: "Alifiana Sutan Syahputri", jenis: "Latihan Ulangan Harian - Describing People", skor: 81, skorAsli: 81, predikat: "B" },
+      { siswa: "Amanda Rizky Zakya", jenis: "Latihan Ulangan Harian - Describing People", skor: 78, skorAsli: 78, predikat: "C" },
+      { siswa: "As Syifa Purba Lestari", jenis: "Latihan Ulangan Harian - Describing People", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Aurelia Nurul Hannifa", jenis: "Latihan Ulangan Harian - Describing People", skor: 89, skorAsli: 89, predikat: "B" },
+      { siswa: "Azzada Za'diyah", jenis: "Latihan Ulangan Harian - Describing People", skor: 50, skorAsli: 80, predikat: "D" },
+      { siswa: "Bima Satriyo", jenis: "Latihan Ulangan Harian - Describing People", skor: 76, skorAsli: 76, predikat: "C" },
+      { siswa: "Damar Raihana Lestari", jenis: "Latihan Ulangan Harian - Describing People", skor: 56, skorAsli: 56, predikat: "D" },
+      { siswa: "Destria Zahra Qurratu'aini", jenis: "Latihan Ulangan Harian - Describing People", skor: 74, skorAsli: 74, predikat: "C" },
+      { siswa: "Efi Setiawati", jenis: "Latihan Ulangan Harian - Describing People", skor: 56, skorAsli: 56, predikat: "D" },
+      { siswa: "Erniavi Zahro", jenis: "Latihan Ulangan Harian - Describing People", skor: 85, skorAsli: 89, predikat: "B" },
+      { siswa: "Fajriana Nur Rohmah", jenis: "Latihan Ulangan Harian - Describing People", skor: 65, skorAsli: 69, predikat: "D" },
+      { siswa: "Fico Anggara", jenis: "Latihan Ulangan Harian - Describing People", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Hervi Ana Najwa", jenis: "Latihan Ulangan Harian - Describing People", skor: 74, skorAsli: 74, predikat: "C" },
+      { siswa: "Ika Meilinisa Nafiah", jenis: "Latihan Ulangan Harian - Describing People", skor: 81, skorAsli: 81, predikat: "B" },
+      { siswa: "Ilham Maulana", jenis: "Latihan Ulangan Harian - Describing People", skor: 46, skorAsli: 46, predikat: "D" },
+      { siswa: "Justine Muhamad Gavrila Hamdani", jenis: "Latihan Ulangan Harian - Describing People", skor: 83, skorAsli: 83, predikat: "B" },
+      { siswa: "Kasih Maghfiroh Shohib", jenis: "Latihan Ulangan Harian - Describing People", skor: 74, skorAsli: 74, predikat: "C" },
+      { siswa: "Laela Khoerun Ni'mah", jenis: "Latihan Ulangan Harian - Describing People", skor: 61, skorAsli: 61, predikat: "D" },
+      { siswa: "Lina Wijiasih", jenis: "Latihan Ulangan Harian - Describing People", skor: 63, skorAsli: 63, predikat: "D" },
+      { siswa: "Listi Aura Rahtama", jenis: "Latihan Ulangan Harian - Describing People", skor: "Belum Mengerjakan", predikat: "-" },
+      { siswa: "Lya Febriana Indah Lestari", jenis: "Latihan Ulangan Harian - Describing People", skor: 46, skorAsli: 46, predikat: "D" },
+      { siswa: "Maznah Zafiroh", jenis: "Latihan Ulangan Harian - Describing People", skor: 70, skorAsli: 85, predikat: "C" },
+      { siswa: "Muhammad Ilyasa Zayn", jenis: "Latihan Ulangan Harian - Describing People", skor: 69, skorAsli: 80, predikat: "D" },
+      { siswa: "Multazimatun Nafingah", jenis: "Latihan Ulangan Harian - Describing People", skor: 67, skorAsli: 67, predikat: "D" },
+      { siswa: "Mutiatul Khusna", jenis: "Latihan Ulangan Harian - Describing People", skor: 54, skorAsli: 54, predikat: "D" },
+      { siswa: "Naila Afifa Rahmadani", jenis: "Latihan Ulangan Harian - Describing People", skor: 76, skorAsli: 76, predikat: "C" },
+      { siswa: "Novelita Zahra", jenis: "Latihan Ulangan Harian - Describing People", skor: 61, skorAsli: 61, predikat: "D" },
+      { siswa: "Qonita Zein Zahira", jenis: "Latihan Ulangan Harian - Describing People", skor: 74, skorAsli: 81, predikat: "C" },
+      { siswa: "Refina Marfunga Sari", jenis: "Latihan Ulangan Harian - Describing People", skor: 85, skorAsli: 85, predikat: "B" },
+      { siswa: "Reni Fazira Annascyntia Sumaliza", jenis: "Latihan Ulangan Harian - Describing People", skor: 83, skorAsli: 83, predikat: "B" },
+      { siswa: "Rizqi Kiyania Fatimah", jenis: "Latihan Ulangan Harian - Describing People", skor: 74, skorAsli: 81, predikat: "C" },
+      { siswa: "Salsabila Haifaitunisa", jenis: "Latihan Ulangan Harian - Describing People", skor: 91, skorAsli: 91, predikat: "A" },
+      { siswa: "Sarah Aruuni Zahra", jenis: "Latihan Ulangan Harian - Describing People", skor: 81, skorAsli: 81, predikat: "B" },
+      { siswa: "Shafa Nafiani", jenis: "Latihan Ulangan Harian - Describing People", skor: 70, skorAsli: 70, predikat: "C" },
+      { siswa: "Taufiq Nur Hidayat", jenis: "Latihan Ulangan Harian - Describing People", skor: 48, skorAsli: 48, predikat: "D" },
     ],
     materi: [
       { tag: "Grammar", title: "16 Tenses — The Time Rail", desc: "Materi interaktif lengkap 16 tenses bahasa Inggris: present, past, dan future beserta rumus dan contoh.", embed: "tenses" }
@@ -1362,6 +1398,7 @@ function renderContent(level){
       <tr>
         <td>${g.jenis}</td>
         <td>${g.skor}</td>
+        <td>${typeof g.skorAsli === 'number' ? g.skorAsli : '-'}</td>
         <td><span class="score-pill ${isNumeric && g.skor >= 85 ? 'score-high' : 'score-mid'}">${g.predikat}</span></td>
         <td><span class="score-pill ${statusCls}">${statusTxt}</span></td>
       </tr>
