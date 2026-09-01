@@ -897,7 +897,7 @@ document.addEventListener('keydown', e => {
 const DATA = {
   X: {
     announcements: [
-      { date: "31 Agustus 2026", title: "Pengumuman Nilai Latihan Ulangan Harian 1", body: "Nilai Latihan Ulangan Harian 1 kelas X I sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan." }
+      { date: "31 Agustus 2026", title: "Pengumuman Nilai Latihan Ulangan Harian 1", body: "Nilai Latihan Ulangan Harian 1 kelas X I sudah bisa dicek di bagian Rekap Nilai di bawah ini. Bagi yang belum mengerjakan, segera hubungi guru untuk susulan.", kelas: "X I" }
     ],
     grades: [
       { siswa: "Allfin Indrawarman", jenis: "Latihan Ulangan Harian 1", skor: 80, predikat: "B" },
